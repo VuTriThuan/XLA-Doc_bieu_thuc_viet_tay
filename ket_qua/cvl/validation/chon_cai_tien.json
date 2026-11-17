@@ -1,0 +1,60 @@
+{
+  "thi_nghiem": "chon_cai_tien",
+  "tap": "validation",
+  "so_nguoi_viet": 52,
+  "tuy_chon": {
+    "chi_chu_so": true
+  },
+  "so_anh": 518,
+  "dung_ca_day": 133,
+  "ti_le_dung_ca_day": 0.2568,
+  "khoang_tin_cay_95": [
+    0.221,
+    0.2961
+  ],
+  "cer": 0.2379,
+  "so_ky_tu": 3211,
+  "theo_day": {
+    "135579": {
+      "dung": 10,
+      "so_anh": 52
+    },
+    "136075": {
+      "dung": 10,
+      "so_anh": 52
+    },
+    "25000": {
+      "dung": 27,
+      "so_anh": 52
+    },
+    "359910": {
+      "dung": 9,
+      "so_anh": 51
+    },
+    "4179248": {
+      "dung": 9,
+      "so_anh": 52
+    },
+    "5841077": {
+      "dung": 8,
+      "so_anh": 52
+    },
+    "609251": {
+      "dung": 10,
+      "so_anh": 52
+    },
+    "7062543": {
+      "dung": 26,
+      "so_anh": 51
+    },
+    "886439": {
+      "dung": 19,
+      "so_anh": 52
+    },
+    "944361": {
+      "dung": 5,
+      "so_anh": 52
+    }
+  },
+  "giay": 83.0
+}

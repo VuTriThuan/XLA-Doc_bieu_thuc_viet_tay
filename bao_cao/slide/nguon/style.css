@@ -1,0 +1,169 @@
+/* Bộ slide Nhóm 13 · Đọc biểu thức viết tay từ ảnh chụp
+ * Canvas cố định 1920×1080 (runtime.js tự co giãn), nên mọi cỡ chữ dùng px.
+ * Màu lấy từ token của theme corporate-clean.
+ */
+
+:root{
+  --font-sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --font-display:var(--font-sans);
+  --font-mono:SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
+  --font-tay:'Bradley Hand','Segoe Print','Comic Sans MS','Chalkboard SE',cursive;
+}
+
+.tpl-presenter-mode-reveal .slide{padding:80px 110px 100px;justify-content:center}
+
+/* ---------- chữ ---------- */
+.tpl-presenter-mode-reveal .kicker{
+  font-family:var(--font-sans);font-size:20px;font-weight:700;color:var(--accent-2);
+  letter-spacing:.14em;text-transform:uppercase;margin:0 0 16px}
+.tpl-presenter-mode-reveal .h1{font-size:86px;line-height:1.1;letter-spacing:-.02em;margin:0 0 28px}
+.tpl-presenter-mode-reveal .h2{font-size:56px;line-height:1.15;letter-spacing:-.015em;margin:0 0 48px}
+.tpl-presenter-mode-reveal .accent{color:var(--accent-2);font-weight:700}
+.tpl-presenter-mode-reveal .lede{font-size:28px;line-height:1.5;color:var(--text-2);font-weight:400;max-width:none}
+.tpl-presenter-mode-reveal .chu-thich{margin:44px 0 0;text-align:center}
+.tpl-presenter-mode-reveal .deck-footer{font-size:17px;left:110px;right:110px;bottom:34px}
+.tpl-presenter-mode-reveal b{color:var(--text-1);font-weight:700}
+
+/* ---------- bố cục ---------- */
+.hai-cot{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.hai-cot.rong-trai{grid-template-columns:1.3fr 1fr}
+.luoi{display:grid;gap:28px}
+.luoi.g2{grid-template-columns:repeat(2,1fr)}
+.luoi.g3{grid-template-columns:repeat(3,1fr)}
+.luoi.g4{grid-template-columns:repeat(4,1fr)}
+
+/* ---------- thẻ ---------- */
+.the{background:var(--surface);border:1px solid var(--border);border-top:5px solid var(--accent-2);
+  border-radius:var(--radius-lg);padding:34px 38px;box-shadow:var(--shadow)}
+.the h4{font-size:36px;line-height:1.25;margin:0 0 14px;color:var(--accent)}
+.the p{font-size:27px;line-height:1.5;color:var(--text-2);margin:0 0 10px}
+.the p:last-child{margin-bottom:0}
+.the.nho{padding:24px 28px}
+.the.nho h4{font-size:28px;margin-bottom:8px}
+.the.nho p{font-size:23px}
+.the .vd{margin-top:18px;padding:12px 16px;background:var(--bg-soft);border-radius:var(--radius);
+  font-family:var(--font-mono);font-size:23px;color:var(--text-1)}
+.the.noi-bat{border-top-color:var(--warn);background:#fffbf3}
+.the.noi-bat h4{color:#b45309}
+.nho-chu{font-size:20px!important;color:var(--text-3)!important}
+
+.cong-thuc{margin-top:24px;padding:16px 20px;background:var(--bg-soft);border-left:4px solid var(--accent-2);
+  border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:22px;color:var(--text-1)}
+.cong-thuc.lon{font-size:24px;margin-top:32px;padding:18px 22px}
+
+/* ---------- danh sách ---------- */
+.ds{list-style:none;margin:0;padding:0}
+.ds li{position:relative;padding-left:36px;font-size:28px;line-height:1.45;color:var(--text-2);margin:0 0 20px}
+.ds li::before{content:"";position:absolute;left:4px;top:.55em;width:12px;height:12px;border-radius:3px;background:var(--accent-2)}
+.ds.gon li{font-size:28px;margin-bottom:18px}
+.buoc{list-style:none;margin:0;padding:0;counter-reset:b}
+.buoc li{counter-increment:b;position:relative;padding-left:62px;font-size:27px;line-height:1.45;color:var(--text-2);margin:0 0 22px}
+.buoc li::before{content:counter(b);position:absolute;left:0;top:0;width:44px;height:44px;border-radius:50%;
+  background:var(--accent-2);color:#fff;font-weight:700;font-size:22px;display:flex;align-items:center;justify-content:center}
+
+/* ---------- ảnh ---------- */
+.tpl-presenter-mode-reveal .img-frame{border-radius:var(--radius-lg);max-height:740px}
+.tpl-presenter-mode-reveal .img-frame.contain{background:#fff}
+.khung-anh{max-height:720px!important;justify-self:center;width:auto!important;height:720px}
+.anh-rong{max-height:none!important;margin-bottom:32px}
+
+/* ---------- 1 & 17: bìa ---------- */
+.slide.bia{background:var(--grad);color:#fff;justify-content:center;padding:96px 110px}
+.bia .bia-fx{position:absolute;top:150px;bottom:150px;right:90px;width:640px;opacity:.85;
+  --accent:#93c5fd;--accent-2:#38bdf8}
+.bia .bia-chu{position:relative;z-index:2;max-width:1080px}
+.bia .kicker{color:#93c5fd!important}
+.bia .h1{color:#fff!important}
+.bia .h1 .nhan{color:#7dd3fc}
+.bia .lede{color:rgba(255,255,255,.82)!important;margin-bottom:56px}
+.bia .deck-footer{color:rgba(255,255,255,.65)}
+.thanh-vien{display:flex;flex-wrap:wrap;gap:16px 18px}
+.thanh-vien span{padding:14px 24px;border:1px solid rgba(255,255,255,.28);border-radius:var(--radius-lg);
+  background:rgba(255,255,255,.07);font-size:26px;font-weight:600;color:#fff}
+.thanh-vien i{display:block;font-style:normal;font-family:var(--font-mono);font-size:18px;font-weight:400;color:rgba(255,255,255,.65);margin-top:4px}
+.ket .bia-chu{max-width:1100px}
+
+/* ---------- 2: ví dụ ---------- */
+.vi-du{display:flex;align-items:center;gap:28px;margin:0 0 48px;padding:32px 40px;background:var(--bg-soft);
+  border:1px dashed var(--border-strong);border-radius:var(--radius-lg);width:max-content}
+.vi-du .tay{font-family:var(--font-tay);font-size:72px;color:#1e3a8a}
+.vi-du .mui{font-size:56px;color:var(--text-3)}
+.vi-du .kq{font-size:80px;font-weight:800;color:var(--good)}
+
+/* ---------- 4: ống xử lý ---------- */
+.ong{display:flex;align-items:stretch;gap:14px}
+.ong .khoi{flex:1;min-height:420px;display:flex;flex-direction:column;gap:16px;padding:34px 30px;border-radius:var(--radius-lg);
+  background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);border-top:8px solid var(--c)}
+.ong .khoi b{font-size:38px;color:var(--c)}
+.ong .khoi span{font-size:27px;line-height:1.5;color:var(--text-2)}
+.ong .k1{--c:#1d4ed8}.ong .k2{--c:#0e7490}.ong .k3{--c:#7c3aed}.ong .k4{--c:#0e9f6e}
+.ong .mui-ten{align-self:center;font-size:64px;color:var(--text-3);font-weight:300}
+
+/* ---------- 5: số lớn ---------- */
+.so-lon{display:flex;align-items:baseline;gap:20px;margin-top:22px;padding:18px 26px;border-radius:var(--radius-lg);
+  background:#fef2f2;border-left:6px solid var(--bad)}
+.so-lon .so{font-size:52px;font-weight:800;color:var(--bad);white-space:nowrap}
+.so-lon .mo{font-size:22px;color:var(--text-2);line-height:1.35}
+.so-lon.tot{background:#ecfdf5;border-left-color:var(--good)}
+.so-lon.tot .so{color:var(--good)}
+
+/* ---------- 11 ---------- */
+.hop-nhan{margin-top:28px;padding:20px 26px;background:var(--grad-soft);border-left:6px solid var(--accent-2);
+  border-radius:var(--radius);font-size:25px;color:var(--text-1)}
+.hai-cot .luoi.g2 + .ds{margin-top:36px}
+
+/* ---------- 12: biểu đồ cột ---------- */
+.bieu-do{display:flex;align-items:flex-end;gap:36px;height:600px;padding:0 20px;border-bottom:2px solid var(--border-strong)}
+.cot-bd{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative}
+.cot-bd .thanh{width:100%;height:calc(var(--h) * 8px);background:var(--accent-2);border-radius:8px 8px 0 0;position:relative;transform-origin:bottom}
+.cot-bd .thanh span{position:absolute;bottom:100%;left:0;right:0;text-align:center;padding-bottom:10px;
+  font-size:34px;font-weight:800;color:var(--text-1)}
+.cot-bd p{position:absolute;top:100%;margin:16px 0 0;font-size:21px;line-height:1.3;color:var(--text-2);text-align:center;width:120%}
+.cot-bd.xau .thanh{background:var(--warn)}
+.cot-bd.chot .thanh{background:var(--good)}
+.cot-bd.chot p{color:var(--text-1);font-weight:700}
+.slide[data-title="Các bước cải tiến"] .chu-thich{margin-top:110px}
+.slide.is-active .cot-bd .thanh{animation:moc-cot .9s cubic-bezier(.2,.8,.2,1) both}
+.slide.is-active .cot-bd .thanh span{animation:hien .4s ease both}
+.slide.is-active .cot-bd:nth-child(1) .thanh,.slide.is-active .cot-bd:nth-child(1) .thanh span{animation-delay:.10s,.75s}
+.slide.is-active .cot-bd:nth-child(2) .thanh,.slide.is-active .cot-bd:nth-child(2) .thanh span{animation-delay:.25s,.9s}
+.slide.is-active .cot-bd:nth-child(3) .thanh,.slide.is-active .cot-bd:nth-child(3) .thanh span{animation-delay:.40s,1.05s}
+.slide.is-active .cot-bd:nth-child(4) .thanh,.slide.is-active .cot-bd:nth-child(4) .thanh span{animation-delay:.55s,1.2s}
+.slide.is-active .cot-bd:nth-child(5) .thanh,.slide.is-active .cot-bd:nth-child(5) .thanh span{animation-delay:.70s,1.35s}
+.slide.is-active .cot-bd:nth-child(6) .thanh,.slide.is-active .cot-bd:nth-child(6) .thanh span{animation-delay:.85s,1.5s}
+.slide.is-active .cot-bd .thanh span{animation-name:hien}
+@keyframes moc-cot{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes hien{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ---------- 13: bảng ---------- */
+.bang{width:100%;border-collapse:collapse;font-size:26px}
+.bang th{text-align:left;padding:14px 20px;background:var(--accent);color:var(--accent-ink);font-weight:600;font-size:22px}
+.bang th:not(:first-child),.bang td:not(:first-child){text-align:center}
+.bang td{padding:15px 22px;border-bottom:1px solid var(--border);color:var(--text-2)}
+.bang tr.mac-dinh td{background:#eff6ff;color:var(--text-1);font-weight:700}
+.bang td.xau{color:var(--bad);font-weight:700}
+
+/* ---------- 14 ---------- */
+.so-lieu{margin-bottom:40px}
+.so-lieu .the{padding:26px 24px;text-align:center}
+.so-lieu .so{display:block;font-size:56px;font-weight:800;color:var(--accent-2);line-height:1.1}
+.so-lieu .the p{font-size:21px;margin-top:8px}
+
+/* in PDF: hiện hết phần tử có hiệu ứng */
+@page{size:1920px 1080px;margin:0}
+@media print{
+  html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tpl-presenter-mode-reveal .slide{width:1920px!important;height:1080px!important;max-height:1080px!important;
+    padding:80px 110px 100px!important;display:flex!important}
+  .tpl-presenter-mode-reveal .slide.bia{padding:96px 110px!important}
+  .anim-stagger-list > *,[data-anim]{opacity:1!important;animation:none!important;transform:none!important}
+  .cot-bd .thanh,.cot-bd .thanh span{animation:none!important;opacity:1!important;transform:none!important}
+}
+
+/* slide thưa chữ: thẻ cao hơn */
+.slide[data-title="Thách thức"] .the{min-height:250px;padding:40px 42px}
+.slide[data-title="Chỉnh nghiêng · liên thông"] .the,.slide[data-title="Ghép nét · gạch xóa"] .the{min-height:420px;display:flex;flex-direction:column}
+.slide[data-title="Chỉnh nghiêng · liên thông"] .the .cong-thuc,.slide[data-title="Ghép nét · gạch xóa"] .the .vd{margin-top:auto}
+.slide[data-title="Kết luận"] .hai-cot{align-items:stretch}
+.slide[data-title="Kết luận"] .the{padding:40px 44px}
+.slide[data-title="Tắt từng bước"] .x{}

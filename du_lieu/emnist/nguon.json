@@ -1,0 +1,11 @@
+{
+  "nguon": "https://biometrics.nist.gov/cs_links/EMNIST/gzip.zip",
+  "tep": {
+    "emnist-digits-train-images-idx3-ubyte.gz": "f7c95004d14d81af89522e67d8f0c781dfb3bd544181c81bfe1eb6b41c35b726",
+    "emnist-digits-train-labels-idx1-ubyte.gz": "6638a6ff5fe2eefd9cca2471995b46c82986b8e4b2a70d2f5ce8e05d7edb319e"
+  },
+  "so_anh_goc": 240000,
+  "so_anh_chon": 60000,
+  "hat": 20261120,
+  "tham_khao": "Cohen, Afshar, Tapson, van Schaik (2017), EMNIST, arXiv:1702.05373"
+}

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="vi" data-themes="corporate-clean">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Đọc dãy số và biểu thức viết tay từ ảnh chụp trang giấy · Nhóm 13</title>
+<link rel="stylesheet" href="../../../../../../.claude/skills/html-ppt/assets/base.css">
+<link rel="stylesheet" id="theme-link" href="../../../../../../.claude/skills/html-ppt/assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="../../../../../../.claude/skills/html-ppt/assets/animations/animations.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="tpl-presenter-mode-reveal">
+<div class="deck">
+
+  <!-- ============ 1. BÌA ============ -->
+  <section class="slide bia" data-title="Bìa">
+    <div class="bia-fx" data-fx="neural-net"></div>
+    <div class="bia-chu">
+      <p class="kicker">Bài tập lớn · Xử lý ảnh · Nhóm 13</p>
+      <h1 class="h1" data-anim="fade-up">Đọc dãy số và biểu thức<br><span class="nhan">viết tay</span> từ ảnh chụp<br>trang giấy</h1>
+      <p class="lede" data-anim="fade-up">Giảng viên: Phạm Hoàng Việt · Nhóm lớp 05</p>
+      <div class="thanh-vien" data-anim="stagger-list">
+        <span>Vũ Trí Thuận <i>B23DCCN802</i></span>
+        <span>Đỗ Minh Vũ <i>B23DCCN942</i></span>
+        <span>Nguyễn Trọng Triều <i>B23DCCN844</i></span>
+        <span>Phạm Minh Đức <i>B23DCCN186</i></span>
+      </div>
+    </div>
+    <div class="deck-footer"><span>Học viện Công nghệ Bưu chính Viễn thông · Hà Nội 2026</span><span class="slide-number" data-current="1" data-total="17"></span></div>
+    <aside class="notes">
+      <p>Em chào thầy và các bạn. Nhóm em là <strong>Nhóm 13</strong>, đề tài là <strong>đọc dãy số và biểu thức viết tay từ ảnh chụp một trang giấy</strong>.</p>
+      <p>Nói ngắn gọn: mình chụp một tờ giấy có các phép tính viết tay, hệ thống tự tách từng dòng, từng ký tự, nhận dạng, rồi <strong>tính ra kết quả</strong>.</p>
+      <p>Nhóm có bốn thành viên. Phần trình bày hôm nay đi theo đúng luồng xử lý: tiền xử lý ảnh, tách ký tự, nhận dạng bằng CNN, rồi đến kết quả thực nghiệm và demo.</p>
+      <p>Em xin bắt đầu bằng bài toán cụ thể.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 2. BÀI TOÁN ============ -->
+  <section class="slide" data-title="Bài toán">
+    <p class="kicker">01 · Bài toán</p>
+    <h2 class="h2">Chụp một trang giấy, <span class="accent">ra kết quả phép tính</span></h2>
+    <div class="hai-cot">
+      <div>
+        <div class="vi-du" data-anim="zoom-pop"><span class="tay">127 + 45 =</span><span class="mui">→</span><span class="kq">172</span></div>
+        <ul class="ds" data-anim="stagger-list">
+          <li><b>Đầu vào:</b> ảnh chụp điện thoại, nhiều dòng, có thể hai cột</li>
+          <li><b>15 ký tự:</b> 0–9 và + − × ÷ =</li>
+          <li><b>Đầu ra:</b> chuỗi đọc được, giá trị (phân số chính xác), đáp số viết tay đúng hay sai</li>
+          <li>Dòng chỉ có số → đọc thành <b>dãy số</b></li>
+        </ul>
+      </div>
+      <figure class="img-frame contain khung-anh" style="--img-ratio:3/4" data-anim="fade-left"><img src="hinh/trang_that.png" alt="Kết quả đọc trang thật"></figure>
+    </div>
+    <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="2" data-total="17"></span></div>
+    <aside class="notes">
+      <p>Bài toán rất đơn giản để phát biểu. Ví dụ tờ giấy có dòng <strong>127 + 45 =</strong>, hệ thống phải trả về <strong>172</strong>.</p>
+      <p>Đầu vào là <strong>ảnh chụp điện thoại</strong>, một trang có nhiều dòng, có khi viết thành hai cột. Hệ thống đọc 15 ký tự: mười chữ số và năm dấu cộng, trừ, nhân, chia, bằng.</p>
+      <p>Đầu ra là chuỗi đọc được và giá trị của biểu thức, tính bằng <strong>phân số</strong> nên không bị sai số làm tròn. Nếu sau dấu bằng mình đã viết sẵn đáp số, hệ thống còn <strong>chấm đúng sai</strong>.</p>
+      <p>Bên phải là kết quả thật trên trang giấy nhóm em viết: dấu tích xanh là đáp số đúng, dấu chéo đỏ là sai kèm kết quả đúng.</p>
+      <p>Nghe thì đơn giản, nhưng khi làm thì khó khăn chủ yếu lại nằm ở <strong>xử lý ảnh</strong>.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 3. THÁCH THỨC ============ -->
+  <section class="slide" data-title="Thách thức">
+    <p class="kicker">02 · Thách thức</p>
+    <h2 class="h2">Ảnh chụp thật khác xa <span class="accent">ảnh MNIST</span></h2>
+    <div class="luoi g3" data-anim="stagger-list">
+      <div class="the"><h4>Ánh sáng không đều</h4><p>Bóng tay, góc tối, giấy ngả màu, mực in mặt sau thấm qua</p></div>
+      <div class="the"><h4>Giấy nghiêng</h4><p>Dòng chữ lệch vài độ, dễ gộp nhầm hai dòng</p></div>
+      <div class="the"><h4>Dòng kẻ vở</h4><p>Đường kẻ dài cắt ngang qua nét chữ</p></div>
+      <div class="the"><h4>Chữ viết dính</h4><p>Các chữ số nối liền nhau thành một khối</p></div>
+      <div class="the"><h4>Trang hai cột</h4><p>Mỗi dòng ngang chứa hai phép tính</p></div>
+      <div class="the"><h4>Gạch xóa</h4><p>Chỗ viết sai bị tô đè, không phải ký tự</p></div>
+    </div>
+    <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="3" data-total="17"></span></div>
+    <aside class="notes">
+      <p>Các bài nhận dạng chữ số quen thuộc như <strong>MNIST</strong> giả định mỗi ảnh chỉ có <strong>một chữ số</strong>, đã cắt sẵn, căn giữa, nền đen sạch.</p>
+      <p>Ảnh chụp thật thì có đủ thứ rắc rối. <strong>Ánh sáng</strong> không đều: một góc bị tối vì bóng tay. <strong>Giấy nghiêng</strong> vài độ. Vở có <strong>dòng kẻ</strong>.</p>
+      <p>Khó nhất là <strong>chữ viết dính</strong>: viết nhanh thì các chữ số nối liền nhau. Rồi trang viết <strong>hai cột</strong>, và có chỗ <strong>gạch xóa</strong>.</p>
+      <p>CNN chỉ làm tốt khi từng ký tự được tách ra sạch và đưa về đúng dạng nó đã học. Nên phần lớn công sức của nhóm dồn vào xử lý ảnh, và mỗi khó khăn ở đây có một bước xử lý riêng mà em sắp trình bày.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 4. LUỒNG XỬ LÝ ============ -->
+  <section class="slide" data-title="Luồng xử lý">
+    <p class="kicker">03 · Tổng quan</p>
+    <h2 class="h2">Luồng xử lý <span class="accent">bốn khối</span></h2>
+    <div class="ong" data-anim="stagger-list">
+      <div class="khoi k1"><b>Tiền xử lý</b><span>Ảnh xám · chuẩn hóa nền + Otsu · chỉnh nghiêng · xóa dòng kẻ · phép đóng · thành phần liên thông</span></div>
+      <div class="mui-ten">›</div>
+      <div class="khoi k2"><b>Tách ký tự</b><span>Lọc nhiễu, gạch xóa · tách cột, dòng · ghép nét · tách chữ dính (drop-fall + quy hoạch động)</span></div>
+      <div class="mui-ten">›</div>
+      <div class="khoi k3"><b>Nhận dạng</b><span>Chuẩn hóa 28×28 · CNN 16 lớp (15 ký tự + "rác") · ghép hai mạng</span></div>
+      <div class="mui-ten">›</div>
+      <div class="khoi k4"><b>Biểu thức</b><span>Ghép số · văn phạm · tính bằng phân số · kiểm tra đáp số</span></div>
+    </div>
+    <p class="lede chu-thich" data-anim="fade-up">Mọi thuật toán xử lý ảnh nhóm tự cài bằng <b>NumPy</b> · CNN bằng <b>PyTorch</b></p>
+    <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="4" data-total="17"></span></div>
+    <aside class="notes">
+      <p>Đây là toàn bộ hệ thống, chia làm <strong>bốn khối</strong>.</p>
+      <p>Khối một là <strong>tiền xử lý</strong>: đưa ảnh chụp màu về một mặt nạ nhị phân sạch và thẳng.</p>
+      <p>Khối hai là <strong>tách ký tự</strong>: chia trang thành cột, dòng, rồi từng ký tự, kể cả xử lý chữ dính.</p>
+      <p>Khối ba là <strong>nhận dạng</strong> bằng CNN. Điểm đặc biệt là ngoài 15 ký tự, mạng còn học thêm một lớp thứ 16 gọi là <strong>"rác"</strong>, em sẽ giải thích ở phần tách chữ dính.</p>
+      <p>Khối cuối ghép ký tự thành số, phân tích biểu thức và tính giá trị.</p>
+      <p>Một điểm quan trọng: các thuật toán xử lý ảnh nhóm <strong>tự cài bằng NumPy</strong>, không dùng OpenCV. Em đi vào từng khối, bắt đầu từ bước quan trọng nhất là tách nền.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 5. TÁCH NỀN ============ -->
+  <section class="slide" data-title="Tách nền">
+    <p class="kicker">04 · Tiền xử lý</p>
+    <h2 class="h2">Tách nét khỏi nền: <span class="accent">chia ảnh cho nền</span></h2>
+    <div class="hai-cot rong-trai">
+      <figure class="img-frame contain" style="--img-ratio:1440/1216" data-anim="fade-up"><img src="hinh/nguong.png" alt="So sánh ba cách tách nền"></figure>
+      <div>
+        <ul class="ds" data-anim="stagger-list">
+          <li><b>Otsu:</b> một ngưỡng cho cả ảnh → góc tối thành nét</li>
+          <li><b>Sauvola:</b> ngưỡng từng điểm qua ảnh tích phân → đứt nét mực nhạt</li>
+          <li><b>Chuẩn hóa nền:</b> lọc cực đại ước lượng nền B, chia I/B rồi mới Otsu</li>
+        </ul>
+        <div class="so-lon" data-anim="zoom-pop"><span class="so">0 / 32</span><span class="mo">dòng đúng trên ảnh thật nếu dùng Otsu</span></div>
+        <div class="so-lon tot" data-anim="zoom-pop"><span class="so">28 / 32</span><span class="mo">với chuẩn hóa nền</span></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="5" data-total="17"></span></div>
+    <aside class="notes">
+      <p>Bước đầu tiên và cũng là <strong>quan trọng nhất</strong>: tách nét chữ khỏi nền giấy. Nhóm thử ba cách.</p>
+      <p><strong>Otsu</strong> chọn một ngưỡng cho cả ảnh. Thầy nhìn hình d: góc dưới bị tối nên cả mảng giấy biến thành nét đen.</p>
+      <p><strong>Sauvola</strong> tính ngưỡng riêng cho từng điểm, dùng <strong>ảnh tích phân</strong> để tính nhanh. Nó xử lý được bóng tối nhưng làm đứt nét mực nhạt.</p>
+      <p>Cách nhóm chọn là <strong>chuẩn hóa nền</strong>: dùng lọc cực đại để xóa nét chữ, còn lại đúng nền giấy, rồi <strong>chia ảnh cho nền</strong>. Sau đó giấy ở đâu cũng trắng như nhau và Otsu lại chạy đúng, như hình f.</p>
+      <p>Con số rất rõ: trên ảnh chụp thật của nhóm, dùng Otsu thì <strong>không đọc đúng dòng nào</strong>, còn chuẩn hóa nền đọc đúng <strong>28 trên 32 dòng</strong>.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 6. NGHIÊNG, DÒNG KẺ, LIÊN THÔNG ============ -->
+  <section class="slide" data-title="Chỉnh nghiêng · liên thông">
+    <p class="kicker">05 · Tiền xử lý</p>
+    <h2 class="h2">Chỉnh nghiêng, xóa dòng kẻ, <span class="accent">gán nhãn liên thông</span></h2>
+    <div class="luoi g3" data-anim="stagger-list">
+      <div class="the"><h4>Chỉnh nghiêng</h4><p>Thử góc −5°…5°, chọn góc làm biểu đồ chiếu ngang nhọn nhất</p><div class="cong-thuc">E(θ) = Σ h(r)²</div></div>
+      <div class="the"><h4>Xóa dòng kẻ</h4><p>Bỏ đoạn chạy ngang dài ≥ 25% bề rộng (phép mở với phần tử 1×L), rồi phép đóng 3×3 nối nét</p><div class="cong-thuc">A ∘ B = (A ⊖ B) ⊕ B</div></div>
+      <div class="the"><h4>Thành phần liên thông</h4><p>Hai lượt trên <b>đoạn chạy</b> + hợp–tìm (union–find); nhanh hơn duyệt từng điểm ảnh hàng chục lần</p><div class="cong-thuc">8 láng giềng</div></div>
+    </div>
+    <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="6" data-total="17"></span></div>
+    <aside class="notes">
+      <p>Ba bước tiền xử lý tiếp theo.</p>
+      <p><strong>Chỉnh nghiêng</strong>: khi dòng chữ nằm ngang, biểu đồ chiếu ngang có các đỉnh cao và nhọn. Nhóm thử các góc từ âm 5 đến 5 độ, chọn góc làm <strong>tổng bình phương</strong> biểu đồ lớn nhất.</p>
+      <p><strong>Xóa dòng kẻ vở</strong>: dòng kẻ là những đoạn nét ngang rất dài. Bỏ các đoạn dài hơn một phần tư bề rộng trang chính là <strong>phép mở</strong> với phần tử cấu trúc ngang. Sau đó phép đóng 3×3 nối lại chỗ nét bị khuyết.</p>
+      <p><strong>Gán nhãn thành phần liên thông</strong>: thay vì duyệt từng điểm ảnh, nhóm nén mỗi hàng thành các đoạn chạy rồi gộp nhãn bằng union-find. Nhanh hơn hàng chục lần, và đã kiểm tra khớp với cách duyệt thông thường.</p>
+      <p>Một phát hiện thú vị về phép đóng em sẽ nói ở phần thực nghiệm.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 7. TÁCH CỘT, DÒNG ============ -->
+  <section class="slide" data-title="Tách cột · dòng">
+    <p class="kicker">06 · Tách ký tự</p>
+    <h2 class="h2">Tách cột và dòng bằng <span class="accent">chiếu dọc, chiếu ngang</span></h2>
+    <div class="hai-cot rong-trai">
+      <figure class="img-frame contain" style="--img-ratio:1256/1400" data-anim="fade-up"><img src="hinh/chieu.png" alt="Tách cột và dòng"></figure>
+      <ul class="ds" data-anim="stagger-list">
+        <li><b>Cột:</b> dải dọc không có nét, rộng ≥ chiều cao chữ</li>
+        <li>Chỉ nhận là ranh giới cột khi <b>mỗi bên có ≥ 2 dòng</b>, tránh tách nhầm khoảng trắng trong một dòng</li>
+        <li><b>Dòng:</b> dải hàng có nét trong từng cột; dải quá cao chia tại cực tiểu</li>
+        <li>Không tách cột: ảnh thật còn <b>0/32</b> dòng đúng</li>
+      </ul>
+    </div>
+    <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="7" data-total="17"></span></div>
+    <aside class="notes">
+      <p>Sang khối tách ký tự. Đầu tiên là <strong>tách cột</strong>, bước này nhóm thêm vào sau khi thử ảnh thật viết hai cột.</p>
+      <p>Chiếu dọc đếm số điểm nét trên từng cột ảnh. Một dải dọc <strong>không có nét nào</strong> và đủ rộng là ứng viên ranh giới cột, chính là đường đỏ trên hình.</p>
+      <p>Nhưng khoảng trắng lớn giữa hai số trên cùng một dòng cũng tạo ra dải trống như vậy. Nên nhóm thêm điều kiện: <strong>mỗi bên phải có ít nhất hai dòng chữ</strong>.</p>
+      <p>Trong từng cột, <strong>chiếu ngang</strong> tìm các dòng, chính là các vùng xanh nhạt; bên phải là biểu đồ chiếu.</p>
+      <p>Không có bước này thì mỗi dòng dính hai phép tính, hai dấu bằng, và <strong>không dòng nào tính được</strong>.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 8. GHÉP NÉT, GẠCH XÓA ============ -->
+  <section class="slide" data-title="Ghép nét · gạch xóa">
+    <p class="kicker">07 · Tách ký tự</p>
+    <h2 class="h2">Ghép nét cùng ký tự, <span class="accent">bỏ vết gạch xóa</span></h2>
+    <div class="luoi g3" data-anim="stagger-list">
+      <div class="the"><h4>Ghép theo cột</h4><p>Hai nhóm chồng ngang ≥ 50% <b>và</b> nằm trên–dưới nhau hoặc một nhóm rất dẹt</p><div class="vd">= &nbsp; ÷ &nbsp; gạch số 5 &nbsp; gạch số 7</div></div>
+      <div class="the"><h4>Ghép bằng CNN</h4><p>Hai nhóm sát nhau, ghép lại vẫn hẹp: ghép nếu CNN chấm ký tự ghép cao hơn</p><div class="vd">số 4 hai nét: "21" → "4"</div></div>
+      <div class="the"><h4>Bỏ vết gạch xóa</h4><p>Đếm lỗ kín trong nhóm nét: chữ số ≤ 3 lỗ, gạch xóa ≥ 6 lỗ</p><div class="vd">"8883743260" → "743260"</div></div>
+    </div>
+    <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="8" data-total="17"></span></div>
+    <aside class="notes">
+      <p>Nhiều ký tự gồm nhiều nét rời: dấu bằng có <strong>hai gạch</strong>, dấu chia có <strong>hai chấm</strong>, số 7 kiểu Việt Nam có gạch ngang.</p>
+      <p>Luật ghép: hai nhóm chồng nhau theo phương ngang, <strong>và</strong> nằm trên dưới nhau hoặc một nhóm rất dẹt. Điều kiện sau rút ra từ lỗi thật: số 1 viết nghiêng bị gộp vào số 0 bên cạnh.</p>
+      <p>Với số 4 viết hai nét rời, luật hình học không đủ, nên nhóm để <strong>CNN quyết định</strong>: ghép lại nếu điểm của ký tự ghép cao hơn. Không có bước này, "13 nhân 4" bị đọc thành "13 nhân 21".</p>
+      <p>Cuối cùng là <strong>vết gạch xóa</strong>: nét tô đi tô lại tạo ra rất nhiều lỗ kín. Chữ số nhiều lắm ba lỗ, vết gạch xóa trên ảnh của nhóm có <strong>12 lỗ</strong>, nên luật "từ 6 lỗ trở lên thì bỏ" loại được nó.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 9. TÁCH CHỮ DÍNH ============ -->
+  <section class="slide" data-title="Tách chữ dính">
+    <p class="kicker">08 · Tách ký tự</p>
+    <h2 class="h2">Tách chữ dính: <span class="accent">drop-fall + quy hoạch động</span></h2>
+    <div class="hai-cot">
+      <figure class="img-frame contain" style="--img-ratio:480/466" data-anim="fade-up"><img src="hinh/duong_cat.png" alt="Đường cắt thẳng và drop-fall"></figure>
+      <div>
+        <ol class="buoc" data-anim="stagger-list">
+          <li><b>Chỗ cắt ứng viên:</b> cực tiểu của chiếu dọc</li>
+          <li><b>Drop-fall:</b> "giọt nước" rơi theo khe giữa hai chữ, chỉ cắt xuyên nét khi bị chặn</li>
+          <li><b>Quy hoạch động</b> chọn cách cắt có tổng điểm CNN lớn nhất</li>
+          <li><b>Lớp "rác"</b> làm mảnh cắt sai bị điểm thấp</li>
+        </ol>
+        <div class="cong-thuc lon" data-anim="fade-up">F(j) = max<sub>i&lt;j</sub> [ F(i) + log P(ký tự | mảnh i–j) ]</div>
+      </div>
+    </div>
+    <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="9" data-total="17"></span></div>
+    <aside class="notes">
+      <p>Đây là phần nhóm đầu tư nhiều nhất: <strong>chữ viết dính</strong>, ví dụ ba số 0 trong "25000" viết liền một nét.</p>
+      <p>Bước một, tìm <strong>chỗ cắt ứng viên</strong> ở các cực tiểu của chiếu dọc, tức chỗ ít nét nhất.</p>
+      <p>Bước hai, cắt thẳng đứng thì hỏng khi chữ viết nghiêng: đường đỏ cắt ngang qua nét. Nhóm cài thêm đường cắt <strong>drop-fall</strong>: thả một giọt nước từ trên xuống, nó rơi theo khe trống giữa hai chữ và chỉ cắt xuyên nét khi không còn đường. Đó là các đường xanh.</p>
+      <p>Bước ba, có nhiều cách cắt, nên dùng <strong>quy hoạch động</strong> chọn cách có tổng điểm CNN lớn nhất.</p>
+      <p>Mấu chốt là <strong>lớp rác</strong>: mảnh cắt sai như nửa chữ số bị CNN gán vào lớp rác nên điểm thấp, và quy hoạch động tự tránh nó.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 10. CHUẨN HÓA KÝ TỰ ============ -->
+  <section class="slide" data-title="Chuẩn hóa ký tự">
+    <p class="kicker">09 · Nhận dạng</p>
+    <h2 class="h2">Chuẩn hóa ký tự về <span class="accent">ảnh 28×28</span></h2>
+    <figure class="img-frame contain anh-rong" style="--img-ratio:1782/468" data-anim="fade-up"><img src="hinh/chuan_hoa.png" alt="Ký tự trước và sau chuẩn hóa"></figure>
+    <div class="luoi g4" data-anim="stagger-list">
+      <div class="the nho"><h4>Cắt hộp bao</h4><p>Chỉ lấy nét của ký tự đó</p></div>
+      <div class="the nho"><h4>Chuẩn độ dày nét</h4><p>w ≈ 2A/P; giãn hoặc co về 2,7 px</p></div>
+      <div class="the nho"><h4>Giữ tỉ lệ</h4><p>Cạnh dài 20 px, dấu trừ vẫn là vạch mảnh</p></div>
+      <div class="the nho"><h4>Một hàm duy nhất</h4><p>Dùng chung cho dữ liệu huấn luyện và lúc đọc</p></div>
+    </div>
+    <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="10" data-total="17"></span></div>
+    <aside class="notes">
+      <p>Mỗi ký tự cắt ra phải đưa về <strong>đúng dạng</strong> mà CNN đã học: ảnh 28 nhân 28, nền đen nét sáng.</p>
+      <p>Hàng trên là mặt nạ cắt từ ảnh thật, hàng dưới là đầu vào của CNN.</p>
+      <p>Bước đáng chú ý là <strong>chuẩn hóa độ dày nét</strong>. Chữ chụp cao 80 điểm ảnh bằng bút bi, thu về 20 điểm thì nét chỉ còn chưa tới 1 điểm ảnh, trong khi MNIST dày 2 đến 3. Nhóm ước lượng độ dày bằng hai lần diện tích chia cho số điểm biên, rồi giãn hoặc co về <strong>2,7 điểm ảnh</strong>.</p>
+      <p>Và quan trọng nhất: <strong>cùng một hàm</strong> này được dùng cho mọi ảnh huấn luyện lẫn lúc đọc trang, để đầu vào lúc học và lúc dùng là một.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 11. CNN & DỮ LIỆU ============ -->
+  <section class="slide" data-title="CNN và dữ liệu">
+    <p class="kicker">10 · Nhận dạng</p>
+    <h2 class="h2">CNN và dữ liệu: <span class="accent">chia tách theo người viết</span></h2>
+    <div class="hai-cot">
+      <div>
+        <div class="luoi g2" data-anim="stagger-list">
+          <div class="the"><h4>Mạng nhỏ</h4><p>2 lớp tích chập · <b>57 nghìn</b> tham số</p></div>
+          <div class="the"><h4>Mạng lớn</h4><p>4 lớp tích chập + BatchNorm · <b>469 nghìn</b> tham số</p></div>
+        </div>
+        <ul class="ds" data-anim="stagger-list">
+          <li><b>MNIST</b> + <b>EMNIST</b> (60.000): chữ số</li>
+          <li><b>HASYv2</b> + <b>CROHME+</b>: + − × ÷ =</li>
+          <li><b>CVL</b>: chữ số viết tay người châu Âu (số 1 có mũ, 7 có gạch)</li>
+          <li><b>"Rác"</b> tự sinh: hai chữ dính, nửa chữ số</li>
+        </ul>
+      </div>
+      <div>
+        <figure class="img-frame contain" style="--img-ratio:1512/702" data-anim="fade-left"><img src="hinh/du_lieu.png" alt="Ảnh huấn luyện"></figure>
+        <div class="hop-nhan" data-anim="fade-up"><b>75 người viết</b> của tập test không có ảnh nào trong huấn luyện</div>
+      </div>
+    </div>
+    <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="11" data-total="17"></span></div>
+    <aside class="notes">
+      <p>Về mạng CNN, nhóm dùng hai kiến trúc: <strong>mạng nhỏ</strong> 57 nghìn tham số, huấn luyện vài phút, và <strong>mạng lớn</strong> có BatchNorm, khoảng 469 nghìn tham số.</p>
+      <p>Dữ liệu ghép từ nhiều nguồn công khai: MNIST và EMNIST cho chữ số, HASYv2 và CROHME+ cho các ký hiệu phép toán. Riêng dấu bằng chỉ có trong CROHME+.</p>
+      <p>Nguồn quan trọng là <strong>CVL</strong>: chữ số viết tay của người châu Âu, có số 1 có mũ, số 7 có gạch, rất giống cách người Việt viết.</p>
+      <p>Nguyên tắc nhóm giữ xuyên suốt là <strong>chia tập theo người viết</strong>: 75 người dùng để đánh giá <strong>không có ảnh nào</strong> trong huấn luyện, để con số đo được là trên người lạ thật sự.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 12. HÀNH TRÌNH CẢI TIẾN ============ -->
+  <section class="slide" data-title="Các bước cải tiến">
+    <p class="kicker">11 · Thực nghiệm</p>
+    <h2 class="h2">Đọc đúng cả dãy số của người lạ: <span class="accent">31% → 62%</span></h2>
+    <div class="bieu-do">
+      <div class="cot-bd"><div class="thanh" style="--h:31.45"><span>31,45%</span></div><p>MNIST + ký hiệu</p></div>
+      <div class="cot-bd xau"><div class="thanh" style="--h:25.67"><span>25,67%</span></div><p>+ tăng cường, biến thể tự vẽ</p></div>
+      <div class="cot-bd"><div class="thanh" style="--h:51.34"><span>51,34%</span></div><p>+ chữ số CVL thật</p></div>
+      <div class="cot-bd"><div class="thanh" style="--h:56.45"><span>56,45%</span></div><p>+ lớp "rác"</p></div>
+      <div class="cot-bd"><div class="thanh" style="--h:60.75"><span>60,75%</span></div><p>+ mạng lớn, EMNIST</p></div>
+      <div class="cot-bd chot"><div class="thanh" style="--h:62.23"><span>62,23%</span></div><p>Ghép hai mạng</p></div>
+    </div>
+    <p class="lede chu-thich" data-anim="fade-up">CVL Digit Strings · 744 dãy viết tay của 75 người không có trong huấn luyện</p>
+    <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="12" data-total="17"></span></div>
+    <aside class="notes">
+      <p>Đây là hành trình cải tiến, đo trên <strong>744 dãy số viết tay</strong> của 75 người lạ.</p>
+      <p>Bản đầu chỉ học MNIST, đọc đúng <strong>31%</strong>. Phân tích lỗi thì thấy số 1 có mũ hay bị đọc thành 4 hoặc 7, vì MNIST là chữ người Mỹ.</p>
+      <p>Nhóm thử <strong>tự vẽ thêm</strong> nét mũ cho số 1, kết quả lại <strong>giảm xuống 26%</strong>: nét mũ tự vẽ làm số 1 giống số 4. Bài học: biến thể tự sinh không thay được chữ thật.</p>
+      <p>Thêm <strong>chữ số viết tay thật</strong> của người châu Âu thì tăng vọt lên <strong>51%</strong>. Thêm <strong>lớp rác</strong> lên 56%, vì tách chữ dính đúng hơn. Mạng lớn cùng EMNIST lên 61%, và ghép hai mạng được <strong>62%</strong>.</p>
+      <p>Nghĩa là gấp đôi so với ban đầu.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 13. ĐÓNG GÓP TỪNG BƯỚC ============ -->
+  <section class="slide" data-title="Đóng góp từng bước">
+    <p class="kicker">12 · Thực nghiệm</p>
+    <h2 class="h2">Tắt từng bước xử lý ảnh <span class="accent">thì sao?</span></h2>
+    <div class="hai-cot rong-trai">
+      <table class="bang" data-anim="fade-up">
+        <thead><tr><th>Cấu hình</th><th>CVL (518 dãy)</th><th>Ảnh thật (32 dòng)</th></tr></thead>
+        <tbody>
+          <tr class="mac-dinh"><td>Đầy đủ</td><td>67,4%</td><td>28</td></tr>
+          <tr><td>Otsu thay chuẩn hóa nền</td><td>67,4%</td><td class="xau">0</td></tr>
+          <tr><td>Sauvola thay chuẩn hóa nền</td><td class="xau">50,0%</td><td class="xau">1</td></tr>
+          <tr><td>Không tách cột</td><td>67,4%</td><td class="xau">0</td></tr>
+          <tr><td>Không tách chữ dính</td><td class="xau">41,7%</td><td class="xau">25</td></tr>
+          <tr><td>Chỉ cắt thẳng (bỏ drop-fall)</td><td class="xau">61,8%</td><td>27</td></tr>
+          <tr><td>Không chuẩn hóa độ dày nét</td><td class="xau">64,7%</td><td>28</td></tr>
+          <tr><td>Không gộp mẩu nét đầu dòng</td><td class="xau">65,3%</td><td>28</td></tr>
+          <tr><td>Không bỏ vết gạch xóa</td><td>67,6%</td><td>27</td></tr>
+        </tbody>
+      </table>
+      <div class="the noi-bat" data-anim="fade-left"><h4>Phát hiện ngược</h4><p>Phép đóng 3×3 lấp khe của dấu <b>÷</b> (thành +) và dấu <b>=</b> (thành 2)</p><p>Bỏ phép đóng: ảnh thật <b>30/32</b>, trang tổng hợp 77,8% → <b>81,4%</b></p><p class="nho-chu">nhưng CVL giảm nhẹ 67,4% → 66,4%</p></div>
+    </div>
+    <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="13" data-total="17"></span></div>
+    <aside class="notes">
+      <p>Để biết từng bước có đáng không, nhóm <strong>tắt từng bước một</strong>, giữ nguyên mọi thứ khác, rồi đo lại.</p>
+      <p>Ba bước quan trọng nhất: <strong>chuẩn hóa nền</strong>, thay bằng Otsu thì ảnh thật còn 0 dòng đúng; <strong>tách cột</strong>, bỏ đi cũng còn 0; và <strong>tách chữ dính</strong>, bỏ đi thì CVL tụt từ 67 xuống 42%.</p>
+      <p>Các bước nhỏ hơn như drop-fall, chuẩn hóa độ dày nét, gộp mẩu nét, mỗi bước đóng góp vài điểm.</p>
+      <p>Có một <strong>phát hiện ngược</strong>: phép đóng 3×3 vốn để nối nét đứt, lại lấp khe giữa chấm và gạch của dấu chia, biến nó thành dấu cộng, và nối hai gạch của dấu bằng. Bỏ phép đóng thì ảnh thật lên <strong>30 trên 32</strong> dòng, nhưng ảnh quét CVL lại giảm nhẹ. Nhóm ghi lại đây là hướng cải tiến tiếp theo.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 14. ẢNH CHỤP THẬT ============ -->
+  <section class="slide" data-title="Ảnh chụp thật">
+    <p class="kicker">13 · Kết quả</p>
+    <h2 class="h2">Trên trang chụp thật <span class="accent">hai cột, 32 dòng</span></h2>
+    <div class="hai-cot">
+      <figure class="img-frame contain khung-anh" style="--img-ratio:3/4" data-anim="fade-up"><img src="hinh/trang_that.png" alt="Kết quả trang thật"></figure>
+      <div>
+        <div class="luoi g3 so-lieu" data-anim="stagger-list">
+          <div class="the"><span class="so">28/32</span><p>dòng đúng hoàn toàn</p></div>
+          <div class="the"><span class="so">23/28</span><p>biểu thức đúng giá trị</p></div>
+          <div class="the"><span class="so">1,7%</span><p>lỗi ký tự</p></div>
+        </div>
+        <ul class="ds" data-anim="stagger-list">
+          <li>Đọc đúng <b>4 ÷ 0</b> (báo chia cho 0), số âm, số lẻ kèm phân số</li>
+          <li>Bỏ qua được chỗ <b>gạch xóa</b></li>
+          <li>4 dòng sai đều do nhầm <b>một ký tự</b>: 9↔4, + → 4, = → 2, số 1 dính số 0</li>
+        </ul>
+      </div>
+    </div>
+    <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="14" data-total="17"></span></div>
+    <aside class="notes">
+      <p>Đây là kết quả trên <strong>trang giấy nhóm em tự viết và chụp</strong>: hai cột, 32 dòng, có cả chỗ gạch xóa và mực in mặt sau thấm qua.</p>
+      <p>Hệ thống đọc đúng hoàn toàn <strong>28 trên 32 dòng</strong>, 23 trên 28 biểu thức ra đúng giá trị, lỗi ký tự chỉ 1,7%.</p>
+      <p>Nó xử lý đúng các trường hợp đặc biệt: <strong>4 chia 0</strong> báo lỗi chia cho không, phép trừ ra số âm, phép chia ra số lẻ kèm phân số, và bỏ qua chỗ gạch xóa.</p>
+      <p>Bốn dòng còn sai đều chỉ <strong>nhầm đúng một ký tự</strong>, ví dụ dấu bằng bị đọc thành số 2. Hai trong số đó chính là lỗi do phép đóng em vừa nói.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 15. ỨNG DỤNG ============ -->
+  <section class="slide" data-title="Ứng dụng">
+    <p class="kicker">14 · Demo</p>
+    <h2 class="h2">Ứng dụng web <span class="accent">và dòng lệnh</span></h2>
+    <div class="hai-cot">
+      <figure class="img-frame contain khung-anh" style="--img-ratio:800/1091" data-anim="fade-up"><img src="hinh/ung_dung.jpg" alt="Ứng dụng web"></figure>
+      <ul class="ds" data-anim="stagger-list">
+        <li><b>Tải ảnh chụp</b> hoặc <b>viết trên khung vẽ</b></li>
+        <li>Khung từng ký tự, ảnh 28×28 và điểm tin cậy; ký tự chưa chắc viền vàng</li>
+        <li>Chấm đáp số: <b>✓</b> đúng, <b>✗</b> sai kèm kết quả đúng</li>
+        <li>Xem ảnh từng bước xử lý; bật tắt từng bước</li>
+        <li>Dòng lệnh: đọc ảnh, <b>cắt mỗi phép tính thành một ảnh</b>, đánh giá</li>
+      </ul>
+    </div>
+    <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="15" data-total="17"></span></div>
+    <aside class="notes">
+      <p>Hệ thống có <strong>ứng dụng web</strong> chạy trên máy. Mình có thể tải ảnh chụp lên, hoặc <strong>viết trực tiếp</strong> lên khung vẽ như trong hình.</p>
+      <p>Ví dụ dòng một "12 cộng 7 bằng", hệ thống điền <strong>19</strong>. Dòng hai "8 nhân 4 bằng 6" thì báo <strong>sai</strong>, kết quả đúng là 32.</p>
+      <p>Bên dưới hiện từng ký tự, ảnh 28×28 đưa vào CNN và điểm tin cậy; ký tự nào mạng chưa chắc thì viền vàng để mình kiểm tra lại. Người dùng còn xem được ảnh của từng bước xử lý.</p>
+      <p>Ngoài ra có các lệnh dòng lệnh để đọc ảnh, cắt từng phép tính thành ảnh riêng và đánh giá. Nếu thời gian cho phép, em xin demo trực tiếp.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 16. KẾT LUẬN ============ -->
+  <section class="slide" data-title="Kết luận">
+    <p class="kicker">15 · Kết luận</p>
+    <h2 class="h2">Kết luận và <span class="accent">hướng phát triển</span></h2>
+    <div class="hai-cot">
+      <div class="the">
+        <h4>Đạt được</h4>
+        <ul class="ds gon" data-anim="stagger-list">
+          <li>Đọc biểu thức từ ảnh chụp thật, hai cột, có gạch xóa</li>
+          <li>Xử lý ảnh tự cài: chuẩn hóa nền, chiếu, liên thông, drop-fall</li>
+          <li>Người lạ: <b>31% → 62%</b> dãy đúng; ảnh thật 28/32 dòng</li>
+        </ul>
+      </div>
+      <div class="the">
+        <h4>Hướng phát triển</h4>
+        <ul class="ds gon" data-anim="stagger-list">
+          <li>Thu nhỏ hoặc bỏ phép đóng; chỉ chỉnh nghiêng khi ≥ 2 dòng</li>
+          <li>Đọc cả dòng không cần tách ký tự (CRNN + CTC)</li>
+          <li>Thêm ngoặc, số thập phân, phân số viết dọc</li>
+        </ul>
+      </div>
+    </div>
+    <p class="lede chu-thich" data-anim="fade-up">Bài học: <b>tách nền, tách ký tự</b> quyết định nhiều hơn tinh chỉnh mạng · luôn đánh giá trên <b>chữ viết thật</b></p>
+    <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="16" data-total="17"></span></div>
+    <aside class="notes">
+      <p>Tóm lại, nhóm đã xây dựng hệ thống <strong>đọc biểu thức viết tay từ ảnh chụp</strong>, chạy được trên ảnh thật hai cột có gạch xóa.</p>
+      <p>Phần xử lý ảnh nhóm tự cài toàn bộ. Trên chữ của người lạ, tỉ lệ đọc đúng cả dãy tăng <strong>từ 31 lên 62%</strong>.</p>
+      <p>Hướng phát triển: trước mắt là <strong>thu nhỏ hoặc bỏ phép đóng</strong>, và chỉ chỉnh nghiêng khi trang có từ hai dòng trở lên. Xa hơn là thử mô hình <strong>đọc cả dòng</strong> không cần tách ký tự, và mở rộng thêm ký hiệu.</p>
+      <p>Hai bài học lớn nhất: với ảnh chụp thật, <strong>tách nền và tách ký tự</strong> quyết định nhiều hơn việc tinh chỉnh mạng; và phải luôn <strong>đánh giá trên chữ viết thật</strong>, vì cải tiến trông tốt trên dữ liệu cùng nguồn có thể làm kém đi trên chữ thật.</p>
+    </aside>
+  </section>
+
+  <!-- ============ 17. CẢM ƠN ============ -->
+  <section class="slide bia ket" data-title="Cảm ơn">
+    <div class="bia-fx" data-fx="neural-net"></div>
+    <div class="bia-chu">
+      <p class="kicker">Nhóm 13 · Xử lý ảnh</p>
+      <h1 class="h1" data-anim="fade-up">Cảm ơn thầy và các bạn<br><span class="nhan">đã lắng nghe</span></h1>
+      <p class="lede" data-anim="fade-up">Mời thầy và các bạn đặt câu hỏi</p>
+      <div class="thanh-vien" data-anim="stagger-list">
+        <span>Vũ Trí Thuận</span><span>Đỗ Minh Vũ</span><span>Nguyễn Trọng Triều</span><span>Phạm Minh Đức</span>
+      </div>
+    </div>
+    <div class="deck-footer"><span>Học viện Công nghệ Bưu chính Viễn thông · Hà Nội 2026</span><span class="slide-number" data-current="17" data-total="17"></span></div>
+    <aside class="notes">
+      <p>Phần trình bày của nhóm em đến đây là hết. <strong>Em cảm ơn thầy và các bạn</strong> đã lắng nghe.</p>
+      <p>Nhóm em rất mong nhận được câu hỏi và góp ý.</p>
+      <p>Gợi ý khi được hỏi: số liệu chi tiết nằm ở chương 6 báo cáo; nếu hỏi vì sao không dùng OpenCV, trả lời là để tự cài và hiểu từng thuật toán; nếu hỏi vì sao không dùng ảnh nhóm để huấn luyện, trả lời là ảnh nhóm chỉ dùng để đánh giá, tránh vừa học vừa chấm trên cùng dữ liệu.</p>
+    </aside>
+  </section>
+
+</div>
+
+<script src="../../../../../../.claude/skills/html-ppt/assets/runtime.js"></script>
+<script src="../../../../../../.claude/skills/html-ppt/assets/animations/fx-runtime.js"></script>
+</body>
+</html>

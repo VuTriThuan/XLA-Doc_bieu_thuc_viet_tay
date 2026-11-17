@@ -1,0 +1,77 @@
+{
+  "bien_the": "lon_rac",
+  "so_epoch": 12,
+  "co_lo": 128,
+  "toc_do_hoc": 0.001,
+  "hat": 42,
+  "buoc_giam": [
+    8,
+    0.3
+  ],
+  "bo_toi_uu": "Adam",
+  "lich_giam_toc_do": "StepLR(step=8, gamma=0.3)",
+  "kien_truc": {
+    "loai": "lon",
+    "so_lop": 16,
+    "batch_norm": true,
+    "dropout": 0.4
+  },
+  "so_tham_so": 468976,
+  "lop": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "+",
+    "-",
+    "×",
+    "÷",
+    "=",
+    "rác"
+  ],
+  "lay_mau": "cân bằng lớp (trọng số 1/số mẫu của lớp), có hoàn lại, 62500 mẫu mỗi epoch",
+  "du_lieu_them": [
+    "CVL Single Digits (35% số lần lấy mẫu mỗi lớp chữ số)",
+    "60.000 chữ số EMNIST",
+    "lớp rác"
+  ],
+  "tang_cuong": null,
+  "so_train": 130500,
+  "so_validation": 9360,
+  "so_train_moi_lop": [
+    11780,
+    12518,
+    11891,
+    11947,
+    11825,
+    11270,
+    11752,
+    12159,
+    11777,
+    11852,
+    1123,
+    1103,
+    777,
+    210,
+    516,
+    8000
+  ],
+  "phien_ban": {
+    "torch": "2.2.2",
+    "numpy": "1.26.4",
+    "python": "3.10.11"
+  },
+  "tieu_chi_chon": "accuracy cân bằng validation cao nhất, hòa thì loss validation thấp nhất; không đọc test",
+  "bat_dau_utc": "2026-11-17T13:37:51.400436+00:00",
+  "epoch_tot_nhat": 11,
+  "validation_can_bang_tot_nhat": 0.9699689224362373,
+  "loss_validation_tot_nhat": 0.10928633064031601,
+  "giay_huan_luyen": 1821.0079405519937,
+  "sha256_checkpoint": "4e4f222aa83c8b373829c8ce89aeee6b1fbe0169ec9e36267f19896b73996ccf"
+}

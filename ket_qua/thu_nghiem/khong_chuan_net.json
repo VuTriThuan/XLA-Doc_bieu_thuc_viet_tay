@@ -1,0 +1,16 @@
+{
+  "thi_nghiem": "khong_chuan_net",
+  "cvl_val_dung": 335,
+  "cvl_val_so": 518,
+  "cvl_val_ti_le": 0.6467,
+  "cvl_val_cer": 0.0906,
+  "kd90_dung": 36,
+  "kd90_cer": 0.1613,
+  "trang_dong_dung": 278,
+  "trang_ti_le_dong": 0.7722,
+  "trang_bieu_thuc_dung": 0.709,
+  "trang_cer": 0.055,
+  "that_dong_dung": 28,
+  "that_bieu_thuc_dung": 23,
+  "that_cer": 0.0169
+}

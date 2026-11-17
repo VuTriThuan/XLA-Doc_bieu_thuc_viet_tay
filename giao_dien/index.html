@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đọc biểu thức viết tay</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --ink: #1b1f24; --muted: #5d6673; --line: #dde1e7;
+    --accent: #2f5bd8; --accent-ink: #ffffff; --accent-soft: #e6ecfc;
+    --ok: #17803d; --ok-bg: #e5f5ea; --bad: #b42318; --bad-bg: #fde8e8; --warn: #9a5b00; --warn-bg: #fff4d6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14171b; --card: #1d2127; --ink: #e8ebef; --muted: #99a3b0; --line: #2f353d;
+      --accent: #7c9cff; --accent-ink: #0d1530; --accent-soft: #232c47;
+      --ok: #6fd38f; --ok-bg: #18301f; --bad: #f4a3a3; --bad-bg: #3d1f1f; --warn: #f2d98b; --warn-bg: #3b3115;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 20px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 20px; }
+  .card h2 { font-size: 13px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; font-weight: 600; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin-bottom: 12px; }
+  .seg button { border: 0; background: transparent; color: var(--ink); padding: 8px 16px; font: inherit; cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+  .stage { position: relative; width: 100%; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: #fff; }
+  #khung { display: block; width: 100%; aspect-ratio: 5 / 2; touch-action: none; cursor: crosshair; }
+  #xem { display: none; width: 100%; max-height: 460px; object-fit: contain; background: #fff; }
+  .hint { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 24px;
+          color: #8a93a0; pointer-events: none; font-size: 14px; }
+  .stage.drop { outline: 3px dashed var(--accent); outline-offset: -3px; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
+  .btn { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 8px; padding: 7px 14px; font: inherit; cursor: pointer; }
+  .btn:hover { border-color: var(--accent); }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .btn:disabled { opacity: .6; cursor: wait; }
+  .opt { color: var(--muted); font-size: 13.5px; display: inline-flex; gap: 6px; align-items: center; margin-right: 10px; }
+  select { font: inherit; background: var(--card); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 3px 6px; }
+  .msg { border-radius: 8px; padding: 9px 12px; margin-top: 12px; font-size: 14px; background: var(--bad-bg); color: var(--bad); }
+  .empty { color: var(--muted); padding: 12px 2px; }
+  .dong { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; }
+  .dong-dau { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; }
+  .chuoi { font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+  .kq { font-size: 20px; font-weight: 600; }
+  .tag { display: inline-block; border-radius: 999px; padding: 2px 10px; font-size: 13px; font-weight: 600; }
+  .tag.ok { background: var(--ok-bg); color: var(--ok); }
+  .tag.bad { background: var(--bad-bg); color: var(--bad); }
+  .tag.info { background: var(--accent-soft); color: var(--accent); }
+  .kytu { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .kt { width: 58px; text-align: center; font-size: 12px; color: var(--muted); }
+  .kt img { width: 56px; height: 56px; image-rendering: pixelated; background: #000; border-radius: 6px; border: 2px solid transparent; display: block; }
+  .kt.ngo img { border-color: var(--warn); }
+  .kt b { color: var(--ink); font-size: 15px; display: block; }
+  .kt.ngo b { color: var(--warn); }
+  .anh-kq { width: 100%; border-radius: 8px; border: 1px solid var(--line); background: #fff; }
+  .steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  figure { margin: 0; }
+  figure img { width: 100%; border: 1px solid var(--line); border-radius: 6px; background: #fff; display: block; }
+  figcaption { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+  .meta { color: var(--muted); font-size: 12.5px; margin-top: 8px; }
+  footer { color: var(--muted); font-size: 12.5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Đọc dãy số và biểu thức viết tay</h1>
+  <p class="sub">Chụp một trang giấy có các dòng như <b>127 + 45 =</b> hoặc viết trực tiếp vào khung. Hệ thống tách từng dòng, từng ký tự, nhận dạng bằng CNN rồi tính kết quả.</p>
+
+  <div class="card">
+    <div class="seg" role="group" aria-label="Nguồn ảnh">
+      <button id="tab-tai" aria-pressed="true">Tải ảnh chụp</button>
+      <button id="tab-ve" aria-pressed="false">Viết trên khung</button>
+    </div>
+    <div class="stage" id="stage">
+      <canvas id="khung" width="1000" height="400" style="display:none"></canvas>
+      <img id="xem" alt="Ảnh đã chọn">
+      <div class="hint" id="hint">Kéo thả ảnh vào đây, dán (Ctrl/⌘+V) hoặc bấm “Chọn ảnh”</div>
+    </div>
+    <div class="row">
+      <span id="nut-tai"><button class="btn" id="chon">Chọn ảnh…</button><input type="file" id="tep" accept="image/*" hidden></span>
+      <span id="nut-ve" style="display:none"><button class="btn" id="hoan-tac">Hoàn tác</button> <button class="btn" id="xoa">Xóa</button></span>
+      <button class="btn primary" id="doc">Đọc</button>
+    </div>
+    <div class="row">
+      <label class="opt">Phân ngưỡng
+        <select id="nguong"><option value="nen_otsu">Chuẩn hóa nền + Otsu</option><option value="sauvola">Sauvola</option><option value="otsu">Otsu toàn cục</option></select></label>
+      <label class="opt"><input type="checkbox" id="tach-dinh" checked> Tách chữ dính</label>
+      <label class="opt"><input type="checkbox" id="dong-ke" checked> Xóa dòng kẻ vở</label>
+      <label class="opt"><input type="checkbox" id="nghieng" checked> Chỉnh nghiêng</label>
+      <label class="opt"><input type="checkbox" id="chi-so"> Chỉ dãy số (không có phép toán)</label>
+    </div>
+    <div id="loi"></div>
+  </div>
+
+  <div class="card">
+    <h2>Kết quả</h2>
+    <div id="ket-qua"><div class="empty">Chưa có kết quả.</div></div>
+  </div>
+
+  <div class="card" id="the-buoc" style="display:none">
+    <h2>Các bước xử lý ảnh</h2>
+    <div class="steps" id="buoc"></div>
+  </div>
+  <footer>Ô viền vàng: ký tự CNN chưa chắc (điểm softmax &lt; 0,6 — không phải xác suất đã hiệu chuẩn). Ký tự hỗ trợ: 0–9 + − × ÷ =.</footer>
+</div>
+<script>
+const $ = (id) => document.getElementById(id);
+const khung = $("khung"), ctx = khung.getContext("2d");
+let cheDo = "tai", anhTai = null, netVe = [], dangVe = null;
+
+function nenTrang() { ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, khung.width, khung.height); }
+function veLai() {
+  nenTrang();
+  ctx.strokeStyle = "#111"; ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.lineWidth = 9;
+  for (const n of netVe) { ctx.beginPath(); n.forEach((p, i) => i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])); if (n.length === 1) ctx.lineTo(n[0][0] + .1, n[0][1]); ctx.stroke(); }
+}
+function chonCheDo(m) {
+  cheDo = m;
+  $("tab-tai").setAttribute("aria-pressed", m === "tai"); $("tab-ve").setAttribute("aria-pressed", m === "ve");
+  khung.style.display = m === "ve" ? "block" : "none";
+  $("xem").style.display = m === "tai" && anhTai ? "block" : "none";
+  $("nut-tai").style.display = m === "tai" ? "" : "none"; $("nut-ve").style.display = m === "ve" ? "" : "none";
+  $("hint").textContent = m === "ve" ? (netVe.length ? "" : "Viết một biểu thức, ví dụ 12 + 7 =") : (anhTai ? "" : "Kéo thả ảnh vào đây, dán (Ctrl/⌘+V) hoặc bấm “Chọn ảnh”");
+  if (m === "ve") veLai();
+}
+$("tab-tai").onclick = () => chonCheDo("tai"); $("tab-ve").onclick = () => chonCheDo("ve");
+
+function viTri(e) { const r = khung.getBoundingClientRect(); return [(e.clientX - r.left) * khung.width / r.width, (e.clientY - r.top) * khung.height / r.height]; }
+khung.addEventListener("pointerdown", (e) => { khung.setPointerCapture(e.pointerId); dangVe = [viTri(e)]; netVe.push(dangVe); $("hint").textContent = ""; veLai(); });
+khung.addEventListener("pointermove", (e) => { if (dangVe) { dangVe.push(viTri(e)); veLai(); } });
+["pointerup", "pointercancel"].forEach((t) => khung.addEventListener(t, () => { dangVe = null; }));
+$("hoan-tac").onclick = () => { netVe.pop(); veLai(); };
+$("xoa").onclick = () => { netVe = []; veLai(); $("hint").textContent = "Viết một biểu thức, ví dụ 12 + 7 ="; };
+
+function napTep(f) {
+  if (!f || !f.type.startsWith("image/")) return;
+  const r = new FileReader();
+  r.onload = () => { anhTai = r.result; $("xem").src = anhTai; chonCheDo("tai"); };
+  r.readAsDataURL(f);
+}
+$("chon").onclick = () => $("tep").click();
+$("tep").onchange = (e) => napTep(e.target.files[0]);
+const stage = $("stage");
+stage.addEventListener("dragover", (e) => { e.preventDefault(); stage.classList.add("drop"); });
+stage.addEventListener("dragleave", () => stage.classList.remove("drop"));
+stage.addEventListener("drop", (e) => { e.preventDefault(); stage.classList.remove("drop"); napTep(e.dataTransfer.files[0]); });
+document.addEventListener("paste", (e) => { const f = [...e.clipboardData.files][0]; if (f) napTep(f); });
+
+function esc(s) { return String(s).replace(/[&<>"]/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c])); }
+function moTa(d) {
+  if (d.loai === "day_so") return `<span class="tag info">Dãy số</span> <span class="kq">${d.so.map(esc).join(", ")}</span>`;
+  if (d.loai === "khong_hop_le") return `<span class="tag bad">Không tính được</span> <span>${esc(d.loi)}</span>`;
+  const gt = esc(d.gia_tri) + (d.phan_so ? ` <span class="meta">(= ${esc(d.phan_so)})</span>` : "");
+  if (d.ve_phai === null) return `<span class="kq">= ${gt}</span>`;
+  return d.dung ? `<span class="tag ok">Đáp số đúng</span> <span class="kq">${gt}</span>`
+                : `<span class="tag bad">Đáp số sai</span> <span>kết quả đúng là <b class="kq">${gt}</b></span>`;
+}
+function hienKetQua(kq) {
+  const buoc = kq.cac_buoc, cuoi = buoc.find((b) => b.ten === "Kết quả");
+  let html = cuoi ? `<img class="anh-kq" src="${cuoi.png}" alt="Ảnh kết quả có khung ký tự">` : "";
+  if (!kq.dong.length) html += `<div class="empty">Không tìm thấy dòng chữ số nào.</div>`;
+  kq.dong.forEach((d, i) => {
+    html += `<div class="dong"><div class="dong-dau"><span class="meta">Dòng ${i + 1}</span><span class="chuoi">${esc(d.chuoi)}</span>${moTa(d)}</div><div class="kytu">`;
+    for (const k of d.ky_tu) {
+      const top = k.top3.map((t) => `${t.ky_tu} ${(t.p * 100).toFixed(0)}%`).join(" · ");
+      html += `<div class="kt${k.nghi_ngo ? " ngo" : ""}" title="${esc(top)}${k.tu_tach_dinh ? " — tách từ chữ dính" : ""}"><img src="${k.anh}" alt="${esc(k.ky_tu)}"><b>${esc(k.ky_tu)}</b>${(k.do_tin_cay * 100).toFixed(0)}%</div>`;
+    }
+    html += `</div></div>`;
+  });
+  html += `<div class="meta">${kq.ms.toFixed(0)} ms · góc nghiêng đã chỉnh ${kq.goc_nghieng}°</div>`;
+  $("ket-qua").innerHTML = html;
+  $("buoc").innerHTML = buoc.filter((b) => b.ten !== "Kết quả").map((b) => `<figure><img src="${b.png}" alt="${esc(b.ten)}"><figcaption>${esc(b.ten)}</figcaption></figure>`).join("");
+  $("the-buoc").style.display = "";
+}
+$("doc").onclick = async () => {
+  $("loi").innerHTML = "";
+  let anh = null;
+  if (cheDo === "ve") { if (!netVe.length) return; veLai(); anh = khung.toDataURL("image/png"); }
+  else anh = anhTai;
+  if (!anh) { $("loi").innerHTML = `<div class="msg">Hãy chọn một ảnh trước.</div>`; return; }
+  const nut = $("doc"); nut.disabled = true; nut.textContent = "Đang đọc…";
+  try {
+    const r = await fetch("/api/doc-trang", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ anh, nguong: $("nguong").value, tach_dinh: $("tach-dinh").checked, xoa_dong_ke: $("dong-ke").checked, chinh_nghieng: $("nghieng").checked, chi_chu_so: $("chi-so").checked }) });
+    const kq = await r.json();
+    if (!r.ok) throw new Error(kq.loi || "Lỗi máy chủ");
+    hienKetQua(kq);
+  } catch (e) { $("loi").innerHTML = `<div class="msg">${esc(e.message)}</div>`; }
+  finally { nut.disabled = false; nut.textContent = "Đọc"; }
+};
+chonCheDo("tai");
+</script>
+</body>
+</html>

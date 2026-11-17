@@ -1,0 +1,58 @@
+{
+  "thi_nghiem": "mac_dinh",
+  "tap": "test",
+  "so_nguoi_viet": 75,
+  "tuy_chon": {},
+  "so_anh": 744,
+  "dung_ca_day": 450,
+  "ti_le_dung_ca_day": 0.6048,
+  "khoang_tin_cay_95": [
+    0.5693,
+    0.6393
+  ],
+  "cer": 0.1096,
+  "so_ky_tu": 4615,
+  "theo_day": {
+    "135579": {
+      "dung": 47,
+      "so_anh": 75
+    },
+    "136075": {
+      "dung": 51,
+      "so_anh": 75
+    },
+    "25000": {
+      "dung": 34,
+      "so_anh": 73
+    },
+    "359910": {
+      "dung": 46,
+      "so_anh": 73
+    },
+    "4179248": {
+      "dung": 48,
+      "so_anh": 74
+    },
+    "5841077": {
+      "dung": 39,
+      "so_anh": 75
+    },
+    "609251": {
+      "dung": 44,
+      "so_anh": 75
+    },
+    "7062543": {
+      "dung": 45,
+      "so_anh": 75
+    },
+    "886439": {
+      "dung": 45,
+      "so_anh": 74
+    },
+    "944361": {
+      "dung": 51,
+      "so_anh": 75
+    }
+  },
+  "giay": 97.4
+}

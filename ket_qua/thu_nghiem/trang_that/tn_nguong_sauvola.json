@@ -1,0 +1,22 @@
+{
+  "thi_nghiem": "tn_nguong_sauvola",
+  "tuy_chon": {
+    "phuong_phap": "sauvola"
+  },
+  "so_trang": 1,
+  "so_dong": 32,
+  "dong_dung": 1,
+  "ti_le_dong_dung": 0.0312,
+  "khoang_tin_cay_dong_95": [
+    0.0055,
+    0.1574
+  ],
+  "so_bieu_thuc": 28,
+  "bieu_thuc_dung_gia_tri": 1,
+  "ti_le_bieu_thuc_dung": 0.0357,
+  "khoang_tin_cay_bieu_thuc_95": [
+    0.0063,
+    0.1771
+  ],
+  "cer": 0.0372
+}

@@ -1,0 +1,22 @@
+{
+  "thi_nghiem": "tn_khong_dong_hinh_thai",
+  "tuy_chon": {
+    "dong_hinh_thai": false
+  },
+  "so_trang": 1,
+  "so_dong": 32,
+  "dong_dung": 30,
+  "ti_le_dong_dung": 0.9375,
+  "khoang_tin_cay_dong_95": [
+    0.7985,
+    0.9827
+  ],
+  "so_bieu_thuc": 28,
+  "bieu_thuc_dung_gia_tri": 25,
+  "ti_le_bieu_thuc_dung": 0.8929,
+  "khoang_tin_cay_bieu_thuc_95": [
+    0.728,
+    0.9629
+  ],
+  "cer": 0.0101
+}

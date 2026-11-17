@@ -1,0 +1,72 @@
+{
+  "nguon": {
+    "hasy": {
+      "ten": "HASYv2",
+      "url": "https://zenodo.org/records/259444",
+      "giay_phep": "ODbL 1.0",
+      "tac_gia": "Martin Thoma (2017), arXiv:1701.08380"
+    },
+    "crohme": {
+      "ten": "CROHME+ (mở rộng CROHME 2023)",
+      "url": "https://zenodo.org/records/14968570",
+      "giay_phep": "CC BY-NC-SA 3.0",
+      "tac_gia": "CROHME (Mouchère và cs.) + chú thích cấu trúc CROHME+"
+    }
+  },
+  "so_mau": {
+    "hasy": {
+      "-": {
+        "train": 75,
+        "validation": 27,
+        "test": 16
+      },
+      "+": {
+        "train": 65,
+        "validation": 12,
+        "test": 13
+      },
+      "×": {
+        "train": 129,
+        "validation": 55,
+        "test": 9
+      },
+      "÷": {
+        "train": 93,
+        "validation": 17,
+        "test": 5
+      }
+    },
+    "crohme": {
+      "-": {
+        "train": 1028,
+        "validation": 255,
+        "test": 217
+      },
+      "+": {
+        "train": 1058,
+        "validation": 210,
+        "test": 232
+      },
+      "×": {
+        "train": 648,
+        "validation": 154,
+        "test": 115
+      },
+      "=": {
+        "train": 516,
+        "validation": 135,
+        "test": 70
+      },
+      "÷": {
+        "train": 117,
+        "validation": 26,
+        "test": 24
+      }
+    }
+  },
+  "chia_tap": {
+    "hasy": "theo người viết, gần 70/15/15 cho từng lớp, tối đa 80 mẫu/người/lớp, hạt 20261117",
+    "crohme": "khử trùng lặp nét, chia theo băm SHA-1 của mã tờ viết gốc (UI) 70/15/15"
+  },
+  "ghi_chu": "Ảnh thô 64×64 nét sáng; chuẩn hóa bằng tien_xu_ly.chuan_hoa khi tạo bộ huấn luyện"
+}

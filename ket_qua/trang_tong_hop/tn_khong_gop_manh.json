@@ -1,0 +1,22 @@
+{
+  "thi_nghiem": "tn_khong_gop_manh",
+  "tuy_chon": {
+    "gop_manh": false
+  },
+  "so_trang": 60,
+  "so_dong": 360,
+  "dong_dung": 275,
+  "ti_le_dong_dung": 0.7639,
+  "khoang_tin_cay_dong_95": [
+    0.7174,
+    0.8048
+  ],
+  "so_bieu_thuc": 244,
+  "bieu_thuc_dung_gia_tri": 173,
+  "ti_le_bieu_thuc_dung": 0.709,
+  "khoang_tin_cay_bieu_thuc_95": [
+    0.6491,
+    0.7624
+  ],
+  "cer": 0.0574
+}

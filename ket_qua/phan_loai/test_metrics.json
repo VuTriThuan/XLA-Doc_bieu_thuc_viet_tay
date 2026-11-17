@@ -1,0 +1,182 @@
+{
+  "bien_the": "nho_rac+lon_rac",
+  "so_mau": 12201,
+  "dung": 11942,
+  "accuracy": 0.9788,
+  "accuracy_can_bang": 0.9809,
+  "chu_so_mnist": {
+    "so_mau": 10000,
+    "dung": 9770,
+    "accuracy": 0.977,
+    "khoang_tin_cay_95": [
+      0.9739,
+      0.9798
+    ]
+  },
+  "ky_hieu": {
+    "so_mau": 701,
+    "dung": 694,
+    "accuracy": 0.99,
+    "khoang_tin_cay_95": [
+      0.9795,
+      0.9952
+    ]
+  },
+  "rac": {
+    "so_mau": 1500,
+    "nhan_ra_la_rac": 1478,
+    "ky_tu_that_bi_goi_la_rac": 80
+  },
+  "theo_nguon": {
+    "crohme": {
+      "so_mau": 658,
+      "dung": 651,
+      "accuracy": 0.9894,
+      "khoang_tin_cay_95": [
+        0.9782,
+        0.9948
+      ]
+    },
+    "hasy": {
+      "so_mau": 43,
+      "dung": 43,
+      "accuracy": 1.0,
+      "khoang_tin_cay_95": [
+        0.918,
+        1.0
+      ]
+    },
+    "mnist": {
+      "so_mau": 10000,
+      "dung": 9770,
+      "accuracy": 0.977,
+      "khoang_tin_cay_95": [
+        0.9739,
+        0.9798
+      ]
+    },
+    "rac": {
+      "so_mau": 1500,
+      "dung": 1478,
+      "accuracy": 0.9853,
+      "khoang_tin_cay_95": [
+        0.9779,
+        0.9903
+      ]
+    }
+  },
+  "theo_lop": [
+    {
+      "lop": "0",
+      "so_mau": 980,
+      "dung": 971,
+      "recall": 0.9908,
+      "precision": 0.9788
+    },
+    {
+      "lop": "1",
+      "so_mau": 1135,
+      "dung": 1115,
+      "recall": 0.9824,
+      "precision": 0.9902
+    },
+    {
+      "lop": "2",
+      "so_mau": 1032,
+      "dung": 1013,
+      "recall": 0.9816,
+      "precision": 0.9893
+    },
+    {
+      "lop": "3",
+      "so_mau": 1010,
+      "dung": 995,
+      "recall": 0.9851,
+      "precision": 0.9871
+    },
+    {
+      "lop": "4",
+      "so_mau": 982,
+      "dung": 965,
+      "recall": 0.9827,
+      "precision": 0.964
+    },
+    {
+      "lop": "5",
+      "so_mau": 892,
+      "dung": 875,
+      "recall": 0.9809,
+      "precision": 0.9843
+    },
+    {
+      "lop": "6",
+      "so_mau": 958,
+      "dung": 931,
+      "recall": 0.9718,
+      "precision": 0.9883
+    },
+    {
+      "lop": "7",
+      "so_mau": 1028,
+      "dung": 1005,
+      "recall": 0.9776,
+      "precision": 0.9872
+    },
+    {
+      "lop": "8",
+      "so_mau": 974,
+      "dung": 931,
+      "recall": 0.9559,
+      "precision": 0.9925
+    },
+    {
+      "lop": "9",
+      "so_mau": 1009,
+      "dung": 969,
+      "recall": 0.9604,
+      "precision": 0.9808
+    },
+    {
+      "lop": "+",
+      "so_mau": 245,
+      "dung": 244,
+      "recall": 0.9959,
+      "precision": 0.976
+    },
+    {
+      "lop": "-",
+      "so_mau": 233,
+      "dung": 230,
+      "recall": 0.9871,
+      "precision": 0.9705
+    },
+    {
+      "lop": "×",
+      "so_mau": 124,
+      "dung": 124,
+      "recall": 1.0,
+      "precision": 0.9688
+    },
+    {
+      "lop": "÷",
+      "so_mau": 29,
+      "dung": 29,
+      "recall": 1.0,
+      "precision": 0.9667
+    },
+    {
+      "lop": "=",
+      "so_mau": 70,
+      "dung": 67,
+      "recall": 0.9571,
+      "precision": 0.9306
+    },
+    {
+      "lop": "rác",
+      "so_mau": 1500,
+      "dung": 1478,
+      "recall": 0.9853,
+      "precision": 0.9487
+    }
+  ]
+}

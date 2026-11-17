@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Hệ điều hành / trình soạn thảo
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Sản phẩm tạm của LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.synctex.gz
+*.xdv
+
+# Tệp khóa tạm của Word, cấu hình công cụ cục bộ
+~$*
+.claude/
+
+# Bộ dữ liệu tải từ nguồn ngoài: không đưa lên repo (tải lại theo README)
+du_lieu/mnist/mnist.npz
+du_lieu/emnist/*.npz
+du_lieu/cvl/*.zip
+du_lieu/ky_tu/ky_tu.npz
