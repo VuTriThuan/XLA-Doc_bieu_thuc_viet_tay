@@ -5,11 +5,11 @@
   },
   "so_trang": 60,
   "so_dong": 360,
-  "dong_dung": 278,
-  "ti_le_dong_dung": 0.7722,
+  "dong_dung": 277,
+  "ti_le_dong_dung": 0.7694,
   "khoang_tin_cay_dong_95": [
-    0.7262,
-    0.8125
+    0.7232,
+    0.81
   ],
   "so_bieu_thuc": 244,
   "bieu_thuc_dung_gia_tri": 173,
@@ -18,5 +18,7 @@
     0.6491,
     0.7624
   ],
+  "so_bieu_thuc_khong_xac_dinh": 0,
+  "khong_xac_dinh_bao_loi_dung": 0,
   "cer": 0.055
 }

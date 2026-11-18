@@ -7,13 +7,13 @@
     "gop_manh": false
   },
   "so_anh": 518,
-  "dung_ca_day": 338,
-  "ti_le_dung_ca_day": 0.6525,
+  "dung_ca_day": 343,
+  "ti_le_dung_ca_day": 0.6622,
   "khoang_tin_cay_95": [
-    0.6105,
-    0.6923
+    0.6204,
+    0.7016
   ],
-  "cer": 0.0891,
+  "cer": 0.0856,
   "so_ky_tu": 3211,
   "theo_day": {
     "135579": {
@@ -29,7 +29,7 @@
       "so_anh": 52
     },
     "359910": {
-      "dung": 30,
+      "dung": 31,
       "so_anh": 51
     },
     "4179248": {
@@ -37,11 +37,11 @@
       "so_anh": 52
     },
     "5841077": {
-      "dung": 37,
+      "dung": 39,
       "so_anh": 52
     },
     "609251": {
-      "dung": 34,
+      "dung": 35,
       "so_anh": 52
     },
     "7062543": {
@@ -53,14 +53,14 @@
       "so_anh": 52
     },
     "944361": {
-      "dung": 32,
+      "dung": 33,
       "so_anh": 52
     }
   },
-  "giay": 110.8,
+  "giay": 62.2,
   "kiem_dinh_90": {
     "so_anh": 90,
-    "dung_ca_day": 36,
-    "cer": 0.172
+    "dung_ca_day": 37,
+    "cer": 0.1667
   }
 }

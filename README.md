@@ -1,12 +1,12 @@
 # Đọc dãy số và biểu thức viết tay từ ảnh chụp trang giấy
 
-Bài tập lớn môn Xử lý ảnh (bản 2). Chụp một tờ giấy có các dòng như `127 + 45 =`, hệ thống tách từng dòng, từng ký tự,
+Bài tập lớn môn Xử lý ảnh, Nhóm 13. Chụp một tờ giấy có các dòng như `127 + 45 =`, hệ thống tách từng dòng, từng ký tự,
 nhận dạng bằng CNN rồi tính kết quả (**172**). Nếu sau dấu `=` có đáp số viết tay, hệ thống cho biết đáp số đó đúng hay
 sai. Dòng chỉ có số (vd. `36 1024 7`) được đọc thành dãy số.
 
 Ký tự hỗ trợ: `0–9 + − × ÷ =`. Phần lớn công việc là xử lý ảnh tự cài bằng NumPy (chuẩn hóa nền, chỉnh nghiêng, xóa
-dòng kẻ vở, thành phần liên thông, chiếu ngang/dọc, tách chữ dính, chuẩn hóa độ dày nét); CNN giữ kiến trúc của BTL
-trước; mô hình cuối ghép CNN đó (thêm lớp "rác") với một CNN lớn hơn.
+dòng kẻ vở, thành phần liên thông, chiếu ngang/dọc, tách chữ dính, chuẩn hóa độ dày nét); nhận dạng bằng CNN, mô hình cuối ghép một CNN nhỏ và một CNN
+lớn, cả hai có thêm lớp "rác" cho những mảnh cắt không phải ký tự.
 
 ## Chạy nhanh
 
@@ -21,8 +21,11 @@ python3 ung_dung.py                          # ứng dụng web: http://127.0.0.
 python3 doc_trang.py anh.jpg                 # đọc một ảnh, in từng dòng và kết quả (--json, --luu-buoc thu_muc/)
 python3 doc_trang.py anh.jpg --chi-chu-so    # trang chỉ có dãy số
 python3 doc_trang.py anh.jpg --cat-dong ra/  # cắt mỗi phép tính thành một ảnh riêng (ra/dong_01.png, ...)
+python3 doc_trang.py anh.jpg --khong-dong-hinh-thai   # tắt phép đóng 3×3 (có thể lấp khe của ÷ và =)
 python3 danh_gia.py                          # đánh giá: CNN, CVL Digit Strings, trang tổng hợp, ảnh chụp thật
 python3 danh_gia.py --thu-nghiem             # bật/tắt từng bước xử lý ảnh để so sánh
+python3 danh_gia.py --cvl --so-sanh-cat-thang  # từng cấu hình trên CVL test, có và không có drop-fall
+python3 danh_gia.py --quet-duong-cat          # so các cách tạo đường cắt trên dữ liệu kiểm định
 python3 huan_luyen.py                        # huấn luyện lại (--chuan-bi: tạo bộ dữ liệu 15 lớp trước)
 python3 -m pytest                            # bộ kiểm thử
 ```
@@ -48,19 +51,23 @@ Dòng 6: 717-4=                   = 713
 | Đánh giá | Kết quả | Ghi chú |
 |---|---|---|
 | CNN, tập test ký tự | chữ số **9770/10000 (97,70%)**; ký hiệu + − × ÷ = **694/701 (99,00%)** | MNIST test; HASYv2 + CROHME+ test (người viết khác train) |
-| **Ảnh chụp thật** của nhóm: 1 trang, 32 dòng, hai cột | dòng đúng **28/32**, biểu thức ra đúng giá trị **23/28**, lỗi ký tự 1,7% | Một người viết; trang này đã được dùng khi sửa khâu tách nên số liệu lạc quan |
-| Đọc dãy số viết tay thật — CVL Digit Strings, 744 ảnh / 75 người lạ | đúng cả dãy **463/744 (62,23%)**, lỗi ký tự 10,1% | Ban đầu 30,65%; quy tắc chọn mô hình đã sửa một lần sau khi thấy điểm test (xem thực nghiệm) |
-| Trang tổng hợp, 60 trang / 360 dòng | dòng đúng hoàn toàn **77,78%**, biểu thức ra đúng giá trị **72,54%** | Ghép từ ký tự tập test trên nền giấy loang, dòng kẻ, xoay nhẹ |
+| **Ảnh chụp thật** của nhóm: 1 trang, 32 dòng, hai cột | dòng đúng **28/32**, biểu thức ra đúng giá trị **23/27**, lỗi ký tự 1,35% | Một người viết; trang này đã được dùng khi sửa khâu tách nên số liệu lạc quan. Dòng `4÷0=` không có giá trị nên đếm riêng (hệ thống báo đúng lỗi chia cho 0) |
+| Đọc dãy số viết tay thật — CVL Digit Strings, 744 ảnh / 75 người lạ | đúng cả dãy **467/744 (62,77%)**, lỗi ký tự 10,0% | Ban đầu 31,32%; quy tắc chọn mô hình đã sửa một lần sau khi thấy điểm test (xem thực nghiệm), nên con số có thể hơi lạc quan |
+| Trang tổng hợp, 60 trang / 360 dòng | dòng đúng hoàn toàn **279/360 (77,50%)**, biểu thức ra đúng giá trị **177/244 (72,54%)** | Ghép từ ký tự tập test trên nền giấy loang, dòng kẻ, xoay nhẹ |
+
+Mọi số liệu trên được đo lại ngày 18/11/2026 sau khi sửa lỗi ở khâu tách chữ dính (mảnh đầu tiên của một nhóm có đường cắt
+bị thay bằng ảnh của cả nhóm); mô hình được chọn không đổi.
 
 Phát hiện chính (chi tiết và bảng đầy đủ trong [bao_cao/thuc_nghiem.md](bao_cao/thuc_nghiem.md)):
-- **Chuẩn hóa nền** là bước quan trọng nhất với ảnh chụp: thay bằng Otsu toàn cục, lỗi ký tự trên trang tăng từ 5,8%
-  lên 83,7%; Sauvola làm đứt nét mực nhạt.
-- **Tách chữ dính** nâng đọc đúng cả dãy trên chữ viết thật từ 23,9% lên 33,2% (CVL validation).
+- **Chuẩn hóa nền** là bước quan trọng nhất với ảnh chụp: thay bằng Otsu toàn cục, lỗi ký tự trên trang tổng hợp tăng từ
+  5,37% lên 86,22% và trên ảnh chụp thật từ 1,35% lên 80,41% (0/32 dòng đúng); Sauvola làm đứt nét mực nhạt.
+- **Tách chữ dính** là bước quan trọng nhất với chữ viết liền nét: tắt nó, 90 dãy CVL của 9 người hoàn toàn mới giảm từ
+  40 xuống 19 dãy đúng.
 - **Tách cột** (chiếu dọc) là bắt buộc với trang viết hai cột: thiếu nó, ảnh chụp thật của nhóm không tính được dòng nào.
-- **Nâng cấp nhận dạng trên chữ viết thật** (CVL test, người lạ): 30,65% → ~51% khi học thêm chữ số viết tay của
-  người châu Âu (số 1 có mũ, 7 có gạch) → ~56% khi thêm lớp **"rác"** giúp tách chữ dính đúng hơn → ~61% với **CNN lớn
-  + EMNIST** → **62,23%** khi ghép hai CNN có lớp rác. Đường cắt **drop-fall** (cắt men theo khe giữa hai chữ nghiêng
-  thay vì cắt thẳng) tăng thêm 0,5–1,9 điểm cho mỗi CNN.
+- **Nâng cấp nhận dạng trên chữ viết thật** (CVL test, người lạ): 31,32% → 51,75% khi học thêm chữ số viết tay của
+  người châu Âu (số 1 có mũ, 7 có gạch) → 56,99% khi thêm lớp **"rác"** giúp tách chữ dính đúng hơn → 61,56% với **CNN lớn
+  + EMNIST** → **62,77%** khi ghép hai CNN có lớp rác. Đường cắt **drop-fall** (cắt men theo khe giữa hai chữ nghiêng
+  thay vì cắt thẳng) tăng thêm 0,7–2,4 điểm cho mỗi CNN.
 - Biến thể kiểu viết sinh tự động và tăng cường dữ liệu tốt trên validation ký tự nhưng **kém trên chữ viết thật**,
   nên mô hình luôn được chọn bằng chữ viết thật chứ không bằng validation ký tự.
 

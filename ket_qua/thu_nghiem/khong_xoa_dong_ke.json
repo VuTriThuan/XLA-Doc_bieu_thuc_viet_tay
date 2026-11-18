@@ -1,16 +1,18 @@
 {
   "thi_nghiem": "khong_xoa_dong_ke",
-  "cvl_val_dung": 349,
+  "cvl_val_dung": 354,
   "cvl_val_so": 518,
-  "cvl_val_ti_le": 0.6737,
-  "cvl_val_cer": 0.0822,
-  "kd90_dung": 39,
-  "kd90_cer": 0.1577,
-  "trang_dong_dung": 280,
-  "trang_ti_le_dong": 0.7778,
+  "cvl_val_ti_le": 0.6834,
+  "cvl_val_cer": 0.0788,
+  "kd90_dung": 40,
+  "kd90_cer": 0.1523,
+  "trang_dong_dung": 279,
+  "trang_ti_le_dong": 0.775,
   "trang_bieu_thuc_dung": 0.7254,
   "trang_cer": 0.0533,
   "that_dong_dung": 28,
   "that_bieu_thuc_dung": 23,
-  "that_cer": 0.0169
+  "that_so_bieu_thuc": 27,
+  "that_chia_0_bao_loi": 1,
+  "that_cer": 0.0135
 }

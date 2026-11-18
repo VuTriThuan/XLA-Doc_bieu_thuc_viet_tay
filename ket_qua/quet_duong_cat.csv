@@ -1,5 +1,5 @@
 ﻿duong_cat_cong,ung_vien_duong_vien,cvl_kiem_dinh_dung,cvl_kiem_dinh_cer,cvl_validation_dung,cvl_validation_so,cvl_validation_cer,trang_dong_dung,trang_cer
-False,False,40,0.1613,318,518,0.1043,0.7944,0.0509
-False,True,40,0.1523,325,518,0.0969,0.7944,0.0509
-True,False,40,0.1595,347,518,0.0866,0.7889,0.0525
-True,True,39,0.1595,347,518,0.086,0.7889,0.0525
+False,False,37,0.1595,335,518,0.0881,0.7806,0.0529
+False,True,39,0.1541,344,518,0.0835,0.7806,0.0529
+True,False,40,0.1523,354,518,0.0782,0.775,0.0537
+True,True,40,0.147,353,518,0.0779,0.775,0.0537

@@ -7,17 +7,17 @@
     "dong_hinh_thai": false
   },
   "so_anh": 518,
-  "dung_ca_day": 344,
-  "ti_le_dung_ca_day": 0.6641,
+  "dung_ca_day": 345,
+  "ti_le_dung_ca_day": 0.666,
   "khoang_tin_cay_95": [
-    0.6223,
-    0.7034
+    0.6243,
+    0.7053
   ],
-  "cer": 0.0866,
+  "cer": 0.0847,
   "so_ky_tu": 3211,
   "theo_day": {
     "135579": {
-      "dung": 33,
+      "dung": 34,
       "so_anh": 52
     },
     "136075": {
@@ -25,7 +25,7 @@
       "so_anh": 52
     },
     "25000": {
-      "dung": 32,
+      "dung": 33,
       "so_anh": 52
     },
     "359910": {
@@ -53,11 +53,11 @@
       "so_anh": 52
     },
     "944361": {
-      "dung": 32,
+      "dung": 31,
       "so_anh": 52
     }
   },
-  "giay": 92.8,
+  "giay": 80.1,
   "kiem_dinh_90": {
     "so_anh": 90,
     "dung_ca_day": 41,

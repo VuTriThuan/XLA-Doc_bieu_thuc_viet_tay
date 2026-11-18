@@ -1,16 +1,18 @@
 {
   "thi_nghiem": "nguong_otsu",
-  "cvl_val_dung": 349,
+  "cvl_val_dung": 354,
   "cvl_val_so": 518,
-  "cvl_val_ti_le": 0.6737,
-  "cvl_val_cer": 0.0816,
-  "kd90_dung": 39,
-  "kd90_cer": 0.1577,
-  "trang_dong_dung": 256,
-  "trang_ti_le_dong": 0.7111,
-  "trang_bieu_thuc_dung": 0.6885,
-  "trang_cer": 0.8663,
+  "cvl_val_ti_le": 0.6834,
+  "cvl_val_cer": 0.0782,
+  "kd90_dung": 40,
+  "kd90_cer": 0.1523,
+  "trang_dong_dung": 254,
+  "trang_ti_le_dong": 0.7056,
+  "trang_bieu_thuc_dung": 0.6844,
+  "trang_cer": 0.8622,
   "that_dong_dung": 0,
   "that_bieu_thuc_dung": 0,
-  "that_cer": 0.7973
+  "that_so_bieu_thuc": 27,
+  "that_chia_0_bao_loi": 0,
+  "that_cer": 0.8041
 }

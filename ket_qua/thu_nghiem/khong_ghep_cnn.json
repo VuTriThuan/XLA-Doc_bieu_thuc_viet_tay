@@ -1,16 +1,18 @@
 {
   "thi_nghiem": "khong_ghep_cnn",
-  "cvl_val_dung": 344,
+  "cvl_val_dung": 349,
   "cvl_val_so": 518,
-  "cvl_val_ti_le": 0.6641,
-  "cvl_val_cer": 0.0863,
-  "kd90_dung": 40,
-  "kd90_cer": 0.1541,
-  "trang_dong_dung": 280,
-  "trang_ti_le_dong": 0.7778,
+  "cvl_val_ti_le": 0.6737,
+  "cvl_val_cer": 0.0828,
+  "kd90_dung": 41,
+  "kd90_cer": 0.1487,
+  "trang_dong_dung": 279,
+  "trang_ti_le_dong": 0.775,
   "trang_bieu_thuc_dung": 0.7254,
   "trang_cer": 0.0537,
   "that_dong_dung": 27,
   "that_bieu_thuc_dung": 22,
-  "that_cer": 0.0236
+  "that_so_bieu_thuc": 27,
+  "that_chia_0_bao_loi": 1,
+  "that_cer": 0.0203
 }

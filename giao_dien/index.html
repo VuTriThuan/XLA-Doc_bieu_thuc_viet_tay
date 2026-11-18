@@ -92,6 +92,7 @@
       <label class="opt"><input type="checkbox" id="tach-dinh" checked> Tách chữ dính</label>
       <label class="opt"><input type="checkbox" id="dong-ke" checked> Xóa dòng kẻ vở</label>
       <label class="opt"><input type="checkbox" id="nghieng" checked> Chỉnh nghiêng</label>
+      <label class="opt"><input type="checkbox" id="dong-hinh-thai" checked> Phép đóng 3×3 (nối nét đứt)</label>
       <label class="opt"><input type="checkbox" id="chi-so"> Chỉ dãy số (không có phép toán)</label>
     </div>
     <div id="loi"></div>
@@ -186,7 +187,7 @@ $("doc").onclick = async () => {
   const nut = $("doc"); nut.disabled = true; nut.textContent = "Đang đọc…";
   try {
     const r = await fetch("/api/doc-trang", { method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ anh, nguong: $("nguong").value, tach_dinh: $("tach-dinh").checked, xoa_dong_ke: $("dong-ke").checked, chinh_nghieng: $("nghieng").checked, chi_chu_so: $("chi-so").checked }) });
+      body: JSON.stringify({ anh, nguong: $("nguong").value, tach_dinh: $("tach-dinh").checked, xoa_dong_ke: $("dong-ke").checked, chinh_nghieng: $("nghieng").checked, dong_hinh_thai: $("dong-hinh-thai").checked, chi_chu_so: $("chi-so").checked }) });
     const kq = await r.json();
     if (!r.ok) throw new Error(kq.loi || "Lỗi máy chủ");
     hienKetQua(kq);

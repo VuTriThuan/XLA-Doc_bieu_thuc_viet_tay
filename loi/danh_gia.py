@@ -145,16 +145,40 @@ def danh_gia_cvl(doc_trang, ten_thi_nghiem="mac_dinh", gioi_han=None, thu_muc=No
     return kq
 
 
+def phan_tich_loi_cvl(ten_thi_nghiem, tap="test"):
+    """Phân loại các dãy đọc sai trong ket_qua/cvl/<tap>/<tên>_chi_tiet.csv: thừa ký tự, thiếu ký tự, cùng độ dài nhưng
+    sai đúng một chữ số; và các cặp nhầm (nhãn → đọc) đếm trên những dãy đọc đủ độ dài."""
+    import csv
+    from collections import Counter
+    tep = KET_QUA / "cvl" / tap / f"{ten_thi_nghiem}_chi_tiet.csv"
+    with open(tep, encoding="utf-8-sig") as f:
+        dong = list(csv.DictReader(f))
+    sai = [r for r in dong if r["dung"] != "True"]
+    cap = Counter()
+    for r in sai:
+        if len(r["doc_duoc"]) == len(r["nhan"]):
+            cap.update(f"{a}→{b}" for a, b in zip(r["nhan"], r["doc_duoc"]) if a != b)
+    return {"thi_nghiem": ten_thi_nghiem, "so_day": len(dong), "day_sai": len(sai),
+            "thua_ky_tu": sum(len(r["doc_duoc"]) > len(r["nhan"]) for r in sai),
+            "thieu_ky_tu": sum(len(r["doc_duoc"]) < len(r["nhan"]) for r in sai),
+            "sai_dung_1_chu_so": sum(len(r["doc_duoc"]) == len(r["nhan"]) and
+                                     sum(a != b for a, b in zip(r["nhan"], r["doc_duoc"])) == 1 for r in sai),
+            "cap_nham_nhieu_nhat": "; ".join(f"{k} ({v})" for k, v in cap.most_common(3))}
+
+
 # ------------------------------------------------------------------------------------------------ (3)(4) trang
 def so_trang(doc_trang, thu_muc_anh, nhan_trang, ten_thi_nghiem, thu_muc_kq, **tuy_chon):
     """So từng trang với nhãn (danh sách dòng). Dòng ghép theo thứ tự trên → dưới.
 
     Chỉ số: CER trên toàn trang (các dòng nối bằng xuống dòng, bỏ dấu cách), tỉ lệ dòng đọc đúng hoàn toàn,
-    và với dòng là biểu thức: tỉ lệ ra ĐÚNG GIÁ TRỊ (vế trái tính được và bằng giá trị của nhãn).
+    và với dòng là biểu thức:
+    - biểu thức có giá trị xác định (vd. 13×4): tỉ lệ ra ĐÚNG GIÁ TRỊ (vế trái tính được và bằng giá trị của nhãn);
+    - biểu thức không xác định (vd. 4÷0): đếm riêng, đúng khi dòng đọc đúng và hệ thống báo lỗi thay vì ra giá trị.
+    Biểu thức không xác định không nằm trong mẫu số của tỉ lệ đúng giá trị (nó không thể "ra đúng giá trị").
     """
     from tien_xu_ly.anh import doc_anh_tu_tep
     chi_tiet = []
-    tong_sua = tong_ky_tu = dong_dung = so_dong = bt_dung = so_bt = 0
+    tong_sua = tong_ky_tu = dong_dung = so_dong = bt_dung = so_bt = kxd_dung = so_kxd = 0
     for ten, nhan in nhan_trang.items():
         kq = doc_trang.doc(doc_anh_tu_tep(Path(thu_muc_anh) / ten), **tuy_chon)
         doc = [d.ket_qua.chuoi.replace(" ", "") for d in kq.dong]
@@ -168,14 +192,16 @@ def so_trang(doc_trang, thu_muc_anh, nhan_trang, ten_thi_nghiem, thu_muc_kq, **t
             dong_dung += d == t
             tu_to = tach_tu_to(list(t))
             if any(c in "+-×÷" for c in t):
-                so_bt += 1
+                doc_bt = kq.dong[i].ket_qua if i < len(kq.dong) else None
+                trai = tu_to[:tu_to.index("=")] if "=" in tu_to else tu_to
                 try:
-                    trai = tu_to[:tu_to.index("=")] if "=" in tu_to else tu_to
                     gt = tinh(trai)
-                    doc_bt = kq.dong[i].ket_qua if i < len(kq.dong) else None
-                    bt_dung += doc_bt is not None and doc_bt.gia_tri is not None and doc_bt.gia_tri == gt
-                except LoiBieuThuc:
-                    pass
+                except LoiBieuThuc:                     # nhãn không có giá trị (chia cho 0)
+                    so_kxd += 1
+                    kxd_dung += d == t and doc_bt is not None and doc_bt.gia_tri is None
+                    continue
+                so_bt += 1
+                bt_dung += doc_bt is not None and doc_bt.gia_tri is not None and doc_bt.gia_tri == gt
         chi_tiet.append({"trang": ten, "so_dong_nhan": len(that), "so_dong_doc": len(doc), "so_loi_ky_tu": s,
                          "nhan": " | ".join(that), "doc_duoc": " | ".join(doc)})
     kq = {"thi_nghiem": ten_thi_nghiem, "tuy_chon": tuy_chon, "so_trang": len(nhan_trang), "so_dong": so_dong,
@@ -183,6 +209,7 @@ def so_trang(doc_trang, thu_muc_anh, nhan_trang, ten_thi_nghiem, thu_muc_kq, **t
           "khoang_tin_cay_dong_95": wilson(dong_dung, so_dong),
           "so_bieu_thuc": so_bt, "bieu_thuc_dung_gia_tri": bt_dung,
           "ti_le_bieu_thuc_dung": round(bt_dung / max(1, so_bt), 4), "khoang_tin_cay_bieu_thuc_95": wilson(bt_dung, so_bt),
+          "so_bieu_thuc_khong_xac_dinh": so_kxd, "khong_xac_dinh_bao_loi_dung": kxd_dung,
           "cer": round(tong_sua / max(1, tong_ky_tu), 4)}
     ghi_json(Path(thu_muc_kq) / f"{ten_thi_nghiem}.json", kq)
     ghi_csv(Path(thu_muc_kq) / f"{ten_thi_nghiem}_chi_tiet.csv", chi_tiet)

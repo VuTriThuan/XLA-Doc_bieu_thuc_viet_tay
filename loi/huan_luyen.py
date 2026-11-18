@@ -205,7 +205,8 @@ def chon_mo_hinh(thu_muc_mo_hinh=None, thu_muc_ket_qua=None, in_ra=True, so_than
                             "rồi ít thành phần hơn; không dùng test ký tự, không dùng CVL Strings test",
                 "ung_vien_ngang_nhau": ["+".join(t) for t in ngang],
                 "ghi_chu": "ngưỡng ngang nhau được thêm sau khi quy tắc cũ chọn nho_rac (hơn 1/90 dãy) nhưng kém trên test",
-                "khong_dung_test": True,
+                "test_dung_de_cham_ung_vien": False,
+                "diem_test_anh_huong_quy_tac_chon": True,
                 "to_hop": {"+".join(t): d for t, d in diem.items()},
                 "ung_vien": {b: {"epoch": c["epoch_tot_nhat"], "sha256_checkpoint": c["sha256_checkpoint"]}
                              for b, c in ch.items()},

@@ -189,7 +189,9 @@ class DocTrang:
             hh, w = m.shape
             # các "nút" là đường cắt (một cột x cho mỗi hàng), sắp theo vị trí trung bình; nút đầu/cuối là hai mép nhóm
             nut = [np.zeros(hh, int), np.full(hh, w)]
-            them((gi, 0, 1), m)
+            # khóa riêng cho cả nhóm: (gi, i, j) chỉ dành cho mảnh giữa hai đường cắt i, j. Trước đây cả nhóm dùng
+            # khóa (gi, 0, 1), trùng với mảnh đầu tiên khi có đường cắt, nên mảnh đầu bị thay bằng ảnh cả nhóm.
+            them((gi, "ca"), m)
             if tach_dinh and g.cao >= 0.5 * h and w > 1.1 * h:
                 giua = [dg for x in vi_tri_cat_ung_vien(m, h, duong_vien=duong_vien)
                         for dg in cac_duong_cat(m, x, cong=cat_cong)]
@@ -210,7 +212,7 @@ class DocTrang:
         ky_tu = []
         for gi, (g, m, nut) in enumerate(ke_hoach):
             n = len(nut)
-            nguyen = chi_muc.get((gi, 0, 1))
+            nguyen = chi_muc.get((gi, "ca"))
             if nguyen is None:
                 continue
             chon = [nguyen]

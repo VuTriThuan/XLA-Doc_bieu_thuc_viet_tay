@@ -41,6 +41,9 @@ def main(argv=None):
                    help="cách tách nét khỏi nền (mặc định: chuẩn hóa nền rồi Otsu)")
     p.add_argument("--khong-xoa-dong-ke", action="store_true", help="tắt bước xóa dòng kẻ ngang của vở")
     p.add_argument("--khong-tach-dinh", action="store_true", help="tắt bước tách chữ dính nhau")
+    p.add_argument("--khong-chinh-nghieng", action="store_true", help="tắt bước chỉnh nghiêng")
+    p.add_argument("--khong-dong-hinh-thai", action="store_true",
+                   help="tắt phép đóng 3×3 sau khi xóa dòng kẻ (phép đóng nối nét đứt nhưng có thể lấp khe của ÷ và =)")
     p.add_argument("--chi-chu-so", action="store_true", help="trang chỉ có dãy số: không xét 5 lớp phép toán")
     p.add_argument("--json", action="store_true")
     p.add_argument("--luu-buoc", type=Path, help="thư mục lưu ảnh từng bước")
@@ -52,7 +55,8 @@ def main(argv=None):
     from tien_xu_ly.anh import doc_anh_tu_tep
     try:
         kq = DocTrang().doc(doc_anh_tu_tep(args.anh), phuong_phap=args.nguong, xoa_dong_ke=not args.khong_xoa_dong_ke,
-                            tach_dinh=not args.khong_tach_dinh, chi_chu_so=args.chi_chu_so)
+                            tach_dinh=not args.khong_tach_dinh, chinh_nghieng=not args.khong_chinh_nghieng,
+                            dong_hinh_thai=not args.khong_dong_hinh_thai, chi_chu_so=args.chi_chu_so)
     except (OSError, LoiXuLyAnh) as loi:
         print("Lỗi:", loi, file=sys.stderr)
         return 2

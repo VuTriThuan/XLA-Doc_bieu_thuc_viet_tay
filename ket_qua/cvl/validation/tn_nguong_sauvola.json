@@ -7,17 +7,17 @@
     "phuong_phap": "sauvola"
   },
   "so_anh": 518,
-  "dung_ca_day": 259,
-  "ti_le_dung_ca_day": 0.5,
+  "dung_ca_day": 262,
+  "ti_le_dung_ca_day": 0.5058,
   "khoang_tin_cay_95": [
-    0.4571,
-    0.5429
+    0.4629,
+    0.5486
   ],
-  "cer": 0.2893,
+  "cer": 0.289,
   "so_ky_tu": 3211,
   "theo_day": {
     "135579": {
-      "dung": 26,
+      "dung": 27,
       "so_anh": 52
     },
     "136075": {
@@ -45,7 +45,7 @@
       "so_anh": 52
     },
     "7062543": {
-      "dung": 30,
+      "dung": 31,
       "so_anh": 51
     },
     "886439": {
@@ -53,14 +53,14 @@
       "so_anh": 52
     },
     "944361": {
-      "dung": 24,
+      "dung": 25,
       "so_anh": 52
     }
   },
-  "giay": 117.3,
+  "giay": 98.9,
   "kiem_dinh_90": {
     "so_anh": 90,
     "dung_ca_day": 30,
-    "cer": 0.3011
+    "cer": 0.3047
   }
 }

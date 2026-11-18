@@ -42,6 +42,44 @@ def test_tach_chu_dinh(bo_doc):
     assert len("".join(d.ket_qua.chuoi for d in co.dong)) > len("".join(d.ket_qua.chuoi for d in khong.dong))
 
 
+def test_tach_chu_dinh_moi_manh_chi_lay_phan_cua_no(bo_doc, monkeypatch):
+    """Hai khối nối bằng một cầu mảnh: phải ra hai ký tự, khối trái và khối phải, hộp bao không chồng nhau.
+
+    Thay CNN bằng bộ chấm cố định để chỉ kiểm tra cách tạo mảnh: mảnh hẹp (một khối) được điểm cao, mảnh rộng (cả
+    nhóm) bị coi là rác. Lỗi cũ (cả nhóm và mảnh đầu dùng chung khóa) làm mảnh đầu là ảnh cả nhóm."""
+    import loi.doc_trang as dt
+    from loi.cau_hinh import LOP_KY_TU
+
+    def danh_dau(doan, chuan_net=True):                     # ghi cột trái/phải của mảnh vào ảnh để bộ chấm đọc
+        cot = np.flatnonzero(doan.any(0))
+        a = np.zeros((28, 28), np.float32)
+        a[0, 0], a[0, 1] = cot[0], cot[-1] + 1
+        return a
+
+    def cham(anh, chi_chu_so):
+        p = np.full((len(anh), len(LOP_KY_TU) + 1), 1e-4)
+        for i, a in enumerate(anh):
+            if a[0, 1] - a[0, 0] <= 70:
+                p[i, 0] = 0.99                              # một khối: chữ số "0" chắc chắn
+            else:
+                p[i, len(LOP_KY_TU)] = 0.99                 # cả nhóm: rác
+        return p / p.sum(1, keepdims=True)
+
+    monkeypatch.setattr(dt, "chuan_hoa_ky_tu", danh_dau)
+    monkeypatch.setattr(bo_doc, "_xac_suat", cham)
+    # đúng một chỗ cắt, giữa cầu nối: khi đó mảnh trái chính là đoạn (đường 0 → đường 1)
+    monkeypatch.setattr(dt, "vi_tri_cat_ung_vien", lambda m, h, duong_vien=False: [m.shape[1] // 2])
+    anh = np.full((150, 240), 235, np.uint8)
+    anh[40:110, 40:90] = 30
+    anh[40:110, 98:148] = 30
+    anh[72:78, 90:98] = 30                                  # cầu nối hai khối
+    ky_tu = [k for d in bo_doc.doc(anh, xoa_dong_ke=False).dong for k in d.ky_tu]
+    assert len(ky_tu) == 2
+    (t1, _, p1, _), (t2, _, p2, _) = ky_tu[0].hop_bao, ky_tu[1].hop_bao
+    assert p1 <= t2 + 1, "hai mảnh chồng lên nhau"
+    assert p1 - t1 <= 60 and p2 - t2 <= 60 and t1 < t2
+
+
 def test_checkpoint_sai_phien_ban_bi_tu_choi(tmp_path):
     from loi.cau_hinh import tep_mo_hinh
     from loi.du_doan import nap_checkpoint
@@ -67,10 +105,19 @@ def test_may_chu(bo_doc):
                                                                       {"Content-Type": "application/json"})).read())
         assert kq["dong"][0]["chuoi"] == "8+5=" and kq["dong"][0]["gia_tri"] == "13"
         assert kq["cac_buoc"] and kq["dong"][0]["ky_tu"][0]["anh"].startswith("data:image/png")
-        with pytest.raises(urllib.error.HTTPError) as loi:
-            urllib.request.urlopen(urllib.request.Request(goc + "/api/doc-trang", b'{"anh": 1}',
-                                                          {"Content-Type": "application/json"}))
-        assert loi.value.code == 400
+        # JSON hợp lệ nhưng sai kiểu (không phải object, thiếu/sai ảnh, tùy chọn không phải bool) đều trả 400,
+        # và máy chủ vẫn phục vụ yêu cầu tiếp theo
+        anh = json.loads(than)["anh"]
+        for sai in (b'{"anh": 1}', b"[]", b"null", b"1", b'"chuoi"',
+                    json.dumps({"anh": anh, "tach_dinh": "false"}).encode()):
+            with pytest.raises(urllib.error.HTTPError) as loi:
+                urllib.request.urlopen(urllib.request.Request(goc + "/api/doc-trang", sai,
+                                                              {"Content-Type": "application/json"}))
+            assert loi.value.code == 400, sai
+        than_tat = json.dumps({"anh": anh, "dong_hinh_thai": False, "chinh_nghieng": False}).encode()
+        kq = json.loads(urllib.request.urlopen(urllib.request.Request(goc + "/api/doc-trang", than_tat,
+                                                                      {"Content-Type": "application/json"})).read())
+        assert kq["dong"][0]["chuoi"] == "8+5="
     finally:
         may_chu.shutdown()
         may_chu.server_close()

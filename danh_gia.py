@@ -6,6 +6,9 @@
     python3 danh_gia.py --trang             trang tổng hợp và ảnh chụp thật trong du_lieu/trang_that/
     python3 danh_gia.py --thu-nghiem        so sánh các lựa chọn tiền xử lý (ngưỡng, tách chữ dính, chuẩn hóa nét, dòng kẻ,
                                             chỉnh nghiêng) trên nửa VALIDATION của CVL và trên trang tổng hợp
+    python3 danh_gia.py --cvl --so-sanh-cat-thang   từng cấu hình trên CVL test, có và không có drop-fall
+    python3 danh_gia.py --phan-tich-loi     phân loại dãy đọc sai trên CVL test (sau --cvl)
+    python3 danh_gia.py --quet-duong-cat    so các cách tạo đường cắt trên dữ liệu kiểm định
 
 CVL Digit Strings được chia theo người viết: nửa validation dùng để chọn mô hình và các lựa chọn tiền xử lý, nửa test chỉ
 để báo cáo (lệnh mặc định và --cvl đọc nửa test).
@@ -61,11 +64,31 @@ def chay_thu_nghiem(doc, dg, ten_chay, gioi_han=None):
                 "trang_dong_dung": trang["dong_dung"], "trang_ti_le_dong": trang["ti_le_dong_dung"],
                 "trang_bieu_thuc_dung": trang["ti_le_bieu_thuc_dung"], "trang_cer": trang["cer"],
                 "that_dong_dung": that["dong_dung"], "that_bieu_thuc_dung": that["bieu_thuc_dung_gia_tri"],
+                "that_so_bieu_thuc": that["so_bieu_thuc"], "that_chia_0_bao_loi": that["khong_xac_dinh_bao_loi_dung"],
                 "that_cer": that["cer"]}
         ghi_json(thu_muc / f"{ten}.json", dong)
         print(dong, flush=True)
     bang = [doc_json(thu_muc / f"{t}.json") for t in THU_NGHIEM if (thu_muc / f"{t}.json").exists()]
     ghi_csv(KET_QUA / "thu_nghiem_tien_xu_ly.csv", bang)
+
+
+def quet_duong_cat(doc, dg, gioi_han=None):
+    """4 cách tạo đường cắt; chọn mặc định bằng 90 dãy kiểm định (sạch), rồi 518 dãy validation, không dùng test."""
+    from loi.cau_hinh import KET_QUA, ghi_csv
+    bang = []
+    for cong in (False, True):
+        for vien in (False, True):
+            tc = {"cat_cong": cong, "duong_vien": vien}
+            cvl = dg.danh_gia_cvl(doc, "quet", gioi_han=gioi_han, in_ra=False, tap="validation", ghi=False,
+                                  chi_chu_so=True, **tc)
+            trang = dg.danh_gia_trang_tong_hop(doc, f"quet_cong{int(cong)}_vien{int(vien)}", **tc)
+            dong = {"duong_cat_cong": cong, "ung_vien_duong_vien": vien,
+                    "cvl_kiem_dinh_dung": cvl["kiem_dinh_90"]["dung_ca_day"], "cvl_kiem_dinh_cer": cvl["kiem_dinh_90"]["cer"],
+                    "cvl_validation_dung": cvl["dung_ca_day"], "cvl_validation_so": cvl["so_anh"],
+                    "cvl_validation_cer": cvl["cer"], "trang_dong_dung": trang["ti_le_dong_dung"], "trang_cer": trang["cer"]}
+            print(dong, flush=True)
+            bang.append(dong)
+    ghi_csv(KET_QUA / "quet_duong_cat.csv", bang)
 
 
 def main(argv=None):
@@ -74,9 +97,17 @@ def main(argv=None):
     p.add_argument("--cvl", action="store_true")
     p.add_argument("--trang", action="store_true")
     p.add_argument("--thu-nghiem", nargs="*", metavar="TEN", help="tắt/thay từng bước; không ghi tên = chạy tất cả")
+    p.add_argument("--quet-duong-cat", action="store_true",
+                   help="so 4 cách tạo đường cắt (drop-fall × thung lũng đường viền) trên 90 dãy kiểm định, 518 dãy "
+                        "validation CVL và trang tổng hợp → ket_qua/quet_duong_cat.csv")
+    p.add_argument("--so-sanh-cat-thang", action="store_true",
+                   help="cùng với --cvl: đo thêm từng cấu hình trên CVL test khi chỉ cắt thẳng (không drop-fall)")
+    p.add_argument("--phan-tich-loi", action="store_true",
+                   help="phân loại dãy đọc sai trên CVL test của từng cấu hình → ket_qua/cvl/test/phan_tich_loi.csv")
     p.add_argument("--gioi-han", type=int, help="chỉ đọc N ảnh CVL đầu tiên (chạy thử nhanh)")
     args = p.parse_args(argv)
-    tat_ca = not (args.phan_loai or args.cvl or args.trang or args.thu_nghiem is not None)
+    tat_ca = not (args.phan_loai or args.cvl or args.trang or args.thu_nghiem is not None or args.quet_duong_cat
+                  or args.phan_tich_loi)
 
     from loi import danh_gia as dg
     from loi.doc_trang import DocTrang
@@ -95,8 +126,17 @@ def main(argv=None):
             kq = dg.danh_gia_cvl(DocTrang(PhanLoaiKyTu(tep_mo_hinh(ten_mh), so_luong=6)), f"mo_hinh_{ten_mh}",
                                  gioi_han=args.gioi_han, in_ra=False, chi_chu_so=True)
             in_kq(f"CVL test, mô hình {ten_mh} (chỉ chữ số)", kq, "dung_ca_day", "so_anh", "ti_le_dung_ca_day", "cer")
+            if args.so_sanh_cat_thang:
+                kq = dg.danh_gia_cvl(DocTrang(PhanLoaiKyTu(tep_mo_hinh(ten_mh), so_luong=6)), f"mo_hinh_{ten_mh}_cat_thang",
+                                     gioi_han=args.gioi_han, in_ra=False, chi_chu_so=True, cat_cong=False)
+                in_kq(f"CVL test, mô hình {ten_mh}, chỉ cắt thẳng", kq, "dung_ca_day", "so_anh", "ti_le_dung_ca_day",
+                      "cer")
         kq = dg.danh_gia_cvl(doc, "chi_chu_so", gioi_han=args.gioi_han, chi_chu_so=True)
         in_kq("CVL test, mô hình được chọn (chỉ chữ số)", kq, "dung_ca_day", "so_anh", "ti_le_dung_ca_day", "cer")
+        if args.so_sanh_cat_thang:
+            kq = dg.danh_gia_cvl(doc, "chi_chu_so_cat_thang", gioi_han=args.gioi_han, in_ra=False, chi_chu_so=True,
+                                 cat_cong=False)
+            in_kq("CVL test, mô hình được chọn, chỉ cắt thẳng", kq, "dung_ca_day", "so_anh", "ti_le_dung_ca_day", "cer")
         kq = dg.danh_gia_cvl(doc, "mac_dinh", gioi_han=args.gioi_han)
         in_kq("CVL test, mô hình được chọn (đủ 15 lớp)", kq, "dung_ca_day", "so_anh", "ti_le_dung_ca_day", "cer")
     if tat_ca or args.trang:
@@ -107,9 +147,18 @@ def main(argv=None):
             print("Ảnh chụp thật: chưa có (đặt ảnh và nhan.json vào du_lieu/trang_that/, xem README ở đó)")
         for ten, kq in tat_ca_that.items():
             in_kq(f"Ảnh chụp thật ({ten})", kq, "so_trang", "so_dong", "dong_dung", "ti_le_dong_dung",
-                  "bieu_thuc_dung_gia_tri", "so_bieu_thuc", "cer")
+                  "bieu_thuc_dung_gia_tri", "so_bieu_thuc", "khong_xac_dinh_bao_loi_dung", "so_bieu_thuc_khong_xac_dinh",
+                  "cer")
     if args.thu_nghiem is not None:
         chay_thu_nghiem(doc, dg, args.thu_nghiem or list(THU_NGHIEM), args.gioi_han)
+    if args.quet_duong_cat:
+        quet_duong_cat(doc, dg, args.gioi_han)
+    if args.phan_tich_loi:
+        from loi.cau_hinh import BIEN_THE, KET_QUA, ghi_csv
+        bang = [dg.phan_tich_loi_cvl(f"mo_hinh_{b}") for b in BIEN_THE] + [dg.phan_tich_loi_cvl("chi_chu_so")]
+        ghi_csv(KET_QUA / "cvl" / "test" / "phan_tich_loi.csv", bang)
+        for r in bang:
+            print(r)
     return 0
 
 

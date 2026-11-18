@@ -6,17 +6,17 @@
     "chi_chu_so": true
   },
   "so_anh": 744,
-  "dung_ca_day": 452,
-  "ti_le_dung_ca_day": 0.6075,
+  "dung_ca_day": 458,
+  "ti_le_dung_ca_day": 0.6156,
   "khoang_tin_cay_95": [
-    0.572,
-    0.642
+    0.5801,
+    0.6499
   ],
-  "cer": 0.1029,
+  "cer": 0.101,
   "so_ky_tu": 4615,
   "theo_day": {
     "135579": {
-      "dung": 49,
+      "dung": 50,
       "so_anh": 75
     },
     "136075": {
@@ -24,23 +24,23 @@
       "so_anh": 75
     },
     "25000": {
-      "dung": 33,
+      "dung": 34,
       "so_anh": 73
     },
     "359910": {
-      "dung": 47,
+      "dung": 49,
       "so_anh": 73
     },
     "4179248": {
-      "dung": 49,
+      "dung": 48,
       "so_anh": 74
     },
     "5841077": {
-      "dung": 39,
+      "dung": 40,
       "so_anh": 75
     },
     "609251": {
-      "dung": 46,
+      "dung": 47,
       "so_anh": 75
     },
     "7062543": {
@@ -48,7 +48,7 @@
       "so_anh": 75
     },
     "886439": {
-      "dung": 41,
+      "dung": 42,
       "so_anh": 74
     },
     "944361": {
@@ -56,5 +56,6 @@
       "so_anh": 75
     }
   },
-  "giay": 229.7
+  "giay": 108.2,
+  "kiem_dinh_90": null
 }

@@ -5,18 +5,20 @@
   },
   "so_trang": 60,
   "so_dong": 360,
-  "dong_dung": 248,
-  "ti_le_dong_dung": 0.6889,
+  "dong_dung": 246,
+  "ti_le_dong_dung": 0.6833,
   "khoang_tin_cay_dong_95": [
-    0.6393,
-    0.7345
+    0.6336,
+    0.7292
   ],
   "so_bieu_thuc": 244,
-  "bieu_thuc_dung_gia_tri": 157,
-  "ti_le_bieu_thuc_dung": 0.6434,
+  "bieu_thuc_dung_gia_tri": 156,
+  "ti_le_bieu_thuc_dung": 0.6393,
   "khoang_tin_cay_bieu_thuc_95": [
-    0.5815,
-    0.7009
+    0.5774,
+    0.697
   ],
-  "cer": 0.0882
+  "so_bieu_thuc_khong_xac_dinh": 0,
+  "khong_xac_dinh_bao_loi_dung": 0,
+  "cer": 0.089
 }

@@ -140,14 +140,14 @@
     <div class="luoi g3" data-anim="stagger-list">
       <div class="the"><h4>Chỉnh nghiêng</h4><p>Thử góc −5°…5°, chọn góc làm biểu đồ chiếu ngang nhọn nhất</p><div class="cong-thuc">E(θ) = Σ h(r)²</div></div>
       <div class="the"><h4>Xóa dòng kẻ</h4><p>Bỏ đoạn chạy ngang dài ≥ 25% bề rộng (phép mở với phần tử 1×L), rồi phép đóng 3×3 nối nét</p><div class="cong-thuc">A ∘ B = (A ⊖ B) ⊕ B</div></div>
-      <div class="the"><h4>Thành phần liên thông</h4><p>Hai lượt trên <b>đoạn chạy</b> + hợp–tìm (union–find); nhanh hơn duyệt từng điểm ảnh hàng chục lần</p><div class="cong-thuc">8 láng giềng</div></div>
+      <div class="the"><h4>Thành phần liên thông</h4><p>Hai lượt trên <b>đoạn chạy</b> + hợp–tìm (union–find): trang thật 50.688 điểm nét chỉ còn 3.200 đoạn, nhanh hơn BFS khoảng 3–4 lần</p><div class="cong-thuc">8 láng giềng</div></div>
     </div>
     <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="6" data-total="17"></span></div>
     <aside class="notes">
       <p>Ba bước tiền xử lý tiếp theo.</p>
       <p><strong>Chỉnh nghiêng</strong>: khi dòng chữ nằm ngang, biểu đồ chiếu ngang có các đỉnh cao và nhọn. Nhóm thử các góc từ âm 5 đến 5 độ, chọn góc làm <strong>tổng bình phương</strong> biểu đồ lớn nhất.</p>
       <p><strong>Xóa dòng kẻ vở</strong>: dòng kẻ là những đoạn nét ngang rất dài. Bỏ các đoạn dài hơn một phần tư bề rộng trang chính là <strong>phép mở</strong> với phần tử cấu trúc ngang. Sau đó phép đóng 3×3 nối lại chỗ nét bị khuyết.</p>
-      <p><strong>Gán nhãn thành phần liên thông</strong>: thay vì duyệt từng điểm ảnh, nhóm nén mỗi hàng thành các đoạn chạy rồi gộp nhãn bằng union-find. Nhanh hơn hàng chục lần, và đã kiểm tra khớp với cách duyệt thông thường.</p>
+      <p><strong>Gán nhãn thành phần liên thông</strong>: thay vì duyệt từng điểm ảnh, nhóm nén mỗi hàng thành các đoạn chạy rồi gộp nhãn bằng union-find. Trên trang chụp thật, 50 nghìn điểm nét chỉ còn khoảng 3.200 đoạn chạy; đo thời gian thì nhanh hơn cách duyệt từng điểm bằng BFS khoảng 3 đến 4 lần, và nhóm đã kiểm tra kết quả khớp với BFS.</p>
       <p>Một phát hiện thú vị về phép đóng em sẽ nói ở phần thực nghiệm.</p>
     </aside>
   </section>
@@ -273,23 +273,23 @@
   <!-- ============ 12. HÀNH TRÌNH CẢI TIẾN ============ -->
   <section class="slide" data-title="Các bước cải tiến">
     <p class="kicker">11 · Thực nghiệm</p>
-    <h2 class="h2">Đọc đúng cả dãy số của người lạ: <span class="accent">31% → 62%</span></h2>
+    <h2 class="h2">Đọc đúng cả dãy số của người lạ: <span class="accent">31% → 63%</span></h2>
     <div class="bieu-do">
-      <div class="cot-bd"><div class="thanh" style="--h:31.45"><span>31,45%</span></div><p>MNIST + ký hiệu</p></div>
-      <div class="cot-bd xau"><div class="thanh" style="--h:25.67"><span>25,67%</span></div><p>+ tăng cường, biến thể tự vẽ</p></div>
-      <div class="cot-bd"><div class="thanh" style="--h:51.34"><span>51,34%</span></div><p>+ chữ số CVL thật</p></div>
-      <div class="cot-bd"><div class="thanh" style="--h:56.45"><span>56,45%</span></div><p>+ lớp "rác"</p></div>
-      <div class="cot-bd"><div class="thanh" style="--h:60.75"><span>60,75%</span></div><p>+ mạng lớn, EMNIST</p></div>
-      <div class="cot-bd chot"><div class="thanh" style="--h:62.23"><span>62,23%</span></div><p>Ghép hai mạng</p></div>
+      <div class="cot-bd"><div class="thanh" style="--h:31.32"><span>31,32%</span></div><p>MNIST + ký hiệu</p></div>
+      <div class="cot-bd xau"><div class="thanh" style="--h:25.94"><span>25,94%</span></div><p>+ tăng cường, biến thể tự vẽ</p></div>
+      <div class="cot-bd"><div class="thanh" style="--h:51.75"><span>51,75%</span></div><p>+ chữ số CVL thật</p></div>
+      <div class="cot-bd"><div class="thanh" style="--h:56.99"><span>56,99%</span></div><p>+ lớp "rác"</p></div>
+      <div class="cot-bd"><div class="thanh" style="--h:61.56"><span>61,56%</span></div><p>+ mạng lớn, EMNIST</p></div>
+      <div class="cot-bd chot"><div class="thanh" style="--h:62.77"><span>62,77%</span></div><p>Ghép hai mạng</p></div>
     </div>
-    <p class="lede chu-thich" data-anim="fade-up">CVL Digit Strings · 744 dãy viết tay của 75 người không có trong huấn luyện</p>
+    <p class="lede chu-thich" data-anim="fade-up">CVL Digit Strings · 744 dãy viết tay của 75 người không có trong huấn luyện<br><span class="nho-dong">Lưu ý: quy tắc chọn mô hình đã sửa một lần sau khi xem điểm test này, nên con số cuối có thể hơi lạc quan</span></p>
     <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="12" data-total="17"></span></div>
     <aside class="notes">
       <p>Đây là hành trình cải tiến, đo trên <strong>744 dãy số viết tay</strong> của 75 người lạ.</p>
       <p>Bản đầu chỉ học MNIST, đọc đúng <strong>31%</strong>. Phân tích lỗi thì thấy số 1 có mũ hay bị đọc thành 4 hoặc 7, vì MNIST là chữ người Mỹ.</p>
       <p>Nhóm thử <strong>tự vẽ thêm</strong> nét mũ cho số 1, kết quả lại <strong>giảm xuống 26%</strong>: nét mũ tự vẽ làm số 1 giống số 4. Bài học: biến thể tự sinh không thay được chữ thật.</p>
-      <p>Thêm <strong>chữ số viết tay thật</strong> của người châu Âu thì tăng vọt lên <strong>51%</strong>. Thêm <strong>lớp rác</strong> lên 56%, vì tách chữ dính đúng hơn. Mạng lớn cùng EMNIST lên 61%, và ghép hai mạng được <strong>62%</strong>.</p>
-      <p>Nghĩa là gấp đôi so với ban đầu.</p>
+      <p>Thêm <strong>chữ số viết tay thật</strong> của người châu Âu thì tăng vọt lên <strong>51%</strong>. Thêm <strong>lớp rác</strong> lên 56%, vì tách chữ dính đúng hơn. Mạng lớn cùng EMNIST lên 62%, và ghép hai mạng được gần <strong>63%</strong>.</p>
+      <p>Nghĩa là gấp đôi so với ban đầu. Nhóm cũng nói thẳng một điểm: quy tắc chọn mô hình trên 90 dãy kiểm định đã được sửa một lần <strong>sau khi xem điểm test</strong>, vì quy tắc cũ chọn một mô hình hơn đúng 1 dãy kiểm định nhưng kém hơn trên test. Test không dùng để chấm ứng viên, nhưng con số cuối vì vậy có thể hơi lạc quan.</p>
     </aside>
   </section>
 
@@ -298,28 +298,31 @@
     <p class="kicker">12 · Thực nghiệm</p>
     <h2 class="h2">Tắt từng bước xử lý ảnh <span class="accent">thì sao?</span></h2>
     <div class="hai-cot rong-trai">
+      <div>
       <table class="bang" data-anim="fade-up">
-        <thead><tr><th>Cấu hình</th><th>CVL (518 dãy)</th><th>Ảnh thật (32 dòng)</th></tr></thead>
+        <thead><tr><th>Cấu hình</th><th>CVL 518 dãy*</th><th>90 dãy sạch</th><th>Ảnh thật**</th></tr></thead>
         <tbody>
-          <tr class="mac-dinh"><td>Đầy đủ</td><td>67,4%</td><td>28</td></tr>
-          <tr><td>Otsu thay chuẩn hóa nền</td><td>67,4%</td><td class="xau">0</td></tr>
-          <tr><td>Sauvola thay chuẩn hóa nền</td><td class="xau">50,0%</td><td class="xau">1</td></tr>
-          <tr><td>Không tách cột</td><td>67,4%</td><td class="xau">0</td></tr>
-          <tr><td>Không tách chữ dính</td><td class="xau">41,7%</td><td class="xau">25</td></tr>
-          <tr><td>Chỉ cắt thẳng (bỏ drop-fall)</td><td class="xau">61,8%</td><td>27</td></tr>
-          <tr><td>Không chuẩn hóa độ dày nét</td><td class="xau">64,7%</td><td>28</td></tr>
-          <tr><td>Không gộp mẩu nét đầu dòng</td><td class="xau">65,3%</td><td>28</td></tr>
-          <tr><td>Không bỏ vết gạch xóa</td><td>67,6%</td><td>27</td></tr>
+          <tr class="mac-dinh"><td>Đầy đủ</td><td>68,3%</td><td>40</td><td>28</td></tr>
+          <tr><td>Otsu thay chuẩn hóa nền</td><td>68,3%</td><td>40</td><td class="xau">0</td></tr>
+          <tr><td>Sauvola thay chuẩn hóa nền</td><td class="xau">50,6%</td><td class="xau">30</td><td class="xau">1</td></tr>
+          <tr><td>Không tách cột</td><td>68,3%</td><td>40</td><td class="xau">0</td></tr>
+          <tr><td>Không tách chữ dính</td><td class="xau">41,7%</td><td class="xau">19</td><td class="xau">25</td></tr>
+          <tr><td>Chỉ cắt thẳng (bỏ drop-fall)</td><td class="xau">64,7%</td><td class="xau">37</td><td>28</td></tr>
+          <tr><td>Không chuẩn hóa độ dày nét</td><td class="xau">65,4%</td><td class="xau">36</td><td>28</td></tr>
+          <tr><td>Không gộp mẩu nét đầu dòng</td><td class="xau">66,2%</td><td class="xau">37</td><td>28</td></tr>
+          <tr><td>Không bỏ vết gạch xóa</td><td>68,5%</td><td>41</td><td>27</td></tr>
         </tbody>
       </table>
-      <div class="the noi-bat" data-anim="fade-left"><h4>Phát hiện ngược</h4><p>Phép đóng 3×3 lấp khe của dấu <b>÷</b> (thành +) và dấu <b>=</b> (thành 2)</p><p>Bỏ phép đóng: ảnh thật <b>30/32</b>, trang tổng hợp 77,8% → <b>81,4%</b></p><p class="nho-chu">nhưng CVL giảm nhẹ 67,4% → 66,4%</p></div>
+      <p class="chu-bang">* 43/52 người viết của tập này có chữ số trong dữ liệu huấn luyện: chỉ nên so chênh lệch giữa các dòng; cột 90 dãy là 9 người hoàn toàn mới.<br>** Một trang của một người, đã dùng khi phát triển.</p>
+      </div>
+      <div class="the noi-bat" data-anim="fade-left"><h4>Phát hiện ngược</h4><p>Phép đóng 3×3 lấp khe của dấu <b>÷</b> (thành +) và dấu <b>=</b> (thành 2)</p><p>Bỏ phép đóng: ảnh thật <b>30/32</b>, trang tổng hợp 77,5% → <b>81,1%</b></p><p class="nho-chu">nhưng CVL 518 dãy giảm 68,3% → 66,6%; trang thật đã dùng khi phát triển nên chưa đủ để đổi mặc định. Nay bật/tắt được trên giao diện.</p></div>
     </div>
     <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="13" data-total="17"></span></div>
     <aside class="notes">
       <p>Để biết từng bước có đáng không, nhóm <strong>tắt từng bước một</strong>, giữ nguyên mọi thứ khác, rồi đo lại.</p>
-      <p>Ba bước quan trọng nhất: <strong>chuẩn hóa nền</strong>, thay bằng Otsu thì ảnh thật còn 0 dòng đúng; <strong>tách cột</strong>, bỏ đi cũng còn 0; và <strong>tách chữ dính</strong>, bỏ đi thì CVL tụt từ 67 xuống 42%.</p>
-      <p>Các bước nhỏ hơn như drop-fall, chuẩn hóa độ dày nét, gộp mẩu nét, mỗi bước đóng góp vài điểm.</p>
-      <p>Có một <strong>phát hiện ngược</strong>: phép đóng 3×3 vốn để nối nét đứt, lại lấp khe giữa chấm và gạch của dấu chia, biến nó thành dấu cộng, và nối hai gạch của dấu bằng. Bỏ phép đóng thì ảnh thật lên <strong>30 trên 32</strong> dòng, nhưng ảnh quét CVL lại giảm nhẹ. Nhóm ghi lại đây là hướng cải tiến tiếp theo.</p>
+      <p>Ba bước quan trọng nhất: <strong>chuẩn hóa nền</strong>, thay bằng Otsu thì ảnh thật còn 0 dòng đúng; <strong>tách cột</strong>, bỏ đi cũng còn 0; và <strong>tách chữ dính</strong>, bỏ đi thì CVL tụt từ 68 xuống 42%, còn 90 dãy sạch từ 40 xuống 19.</p>
+      <p>Các bước nhỏ hơn như drop-fall, chuẩn hóa độ dày nét, gộp mẩu nét, mỗi bước đóng góp vài điểm. Cột 518 dãy có người viết đã nằm trong dữ liệu huấn luyện nên em chỉ so chênh lệch; cột 90 dãy là 9 người hoàn toàn mới.</p>
+      <p>Có một <strong>phát hiện ngược</strong>: phép đóng 3×3 vốn để nối nét đứt, lại lấp khe giữa chấm và gạch của dấu chia, biến nó thành dấu cộng, và nối hai gạch của dấu bằng. Bỏ phép đóng thì ảnh thật lên <strong>30 trên 32</strong> dòng, nhưng ảnh quét CVL lại giảm nhẹ, và trang thật là trang nhóm đã dùng khi phát triển, nên nhóm chưa đổi mặc định. Phép đóng giờ bật tắt được trên giao diện để thử.</p>
     </aside>
   </section>
 
@@ -332,22 +335,24 @@
       <div>
         <div class="luoi g3 so-lieu" data-anim="stagger-list">
           <div class="the"><span class="so">28/32</span><p>dòng đúng hoàn toàn</p></div>
-          <div class="the"><span class="so">23/28</span><p>biểu thức đúng giá trị</p></div>
-          <div class="the"><span class="so">1,7%</span><p>lỗi ký tự</p></div>
+          <div class="the"><span class="so">23/27</span><p>biểu thức đúng giá trị</p></div>
+          <div class="the"><span class="so">1,4%</span><p>lỗi ký tự</p></div>
         </div>
         <ul class="ds" data-anim="stagger-list">
-          <li>Đọc đúng <b>4 ÷ 0</b> (báo chia cho 0), số âm, số lẻ kèm phân số</li>
+          <li>Đọc đúng <b>4 ÷ 0</b> và báo chia cho 0 (đếm riêng, không nằm trong 27), số âm, số lẻ kèm phân số</li>
           <li>Bỏ qua được chỗ <b>gạch xóa</b></li>
-          <li>4 dòng sai đều do nhầm <b>một ký tự</b>: 9↔4, + → 4, = → 2, số 1 dính số 0</li>
+          <li>4 dòng sai: 3 dòng nhầm <b>một ký tự</b> (1 → 4, + → 4, = → 2), 1 dòng mất số 1 (×10 → ×0)</li>
+          <li class="nho-dong">Một trang, một người viết, đã dùng khi phát triển → số liệu lạc quan</li>
         </ul>
       </div>
     </div>
     <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="14" data-total="17"></span></div>
     <aside class="notes">
       <p>Đây là kết quả trên <strong>trang giấy nhóm em tự viết và chụp</strong>: hai cột, 32 dòng, có cả chỗ gạch xóa và mực in mặt sau thấm qua.</p>
-      <p>Hệ thống đọc đúng hoàn toàn <strong>28 trên 32 dòng</strong>, 23 trên 28 biểu thức ra đúng giá trị, lỗi ký tự chỉ 1,7%.</p>
+      <p>Hệ thống đọc đúng hoàn toàn <strong>28 trên 32 dòng</strong>, 23 trên 27 biểu thức ra đúng giá trị, lỗi ký tự khoảng 1,4%. Mẫu số là 27 vì dòng 4 chia 0 không có giá trị, nên được đếm riêng.</p>
       <p>Nó xử lý đúng các trường hợp đặc biệt: <strong>4 chia 0</strong> báo lỗi chia cho không, phép trừ ra số âm, phép chia ra số lẻ kèm phân số, và bỏ qua chỗ gạch xóa.</p>
-      <p>Bốn dòng còn sai đều chỉ <strong>nhầm đúng một ký tự</strong>, ví dụ dấu bằng bị đọc thành số 2. Hai trong số đó chính là lỗi do phép đóng em vừa nói.</p>
+      <p>Trong bốn dòng còn sai, ba dòng <strong>nhầm đúng một ký tự</strong>, ví dụ dấu bằng bị đọc thành số 2; dòng còn lại mất số 1 vì số 1 dính vào số 0. Hai lỗi này chính là do phép đóng em vừa nói.</p>
+      <p>Em cũng xin nói rõ: đây là trang duy nhất, của một người viết, và nhóm đã dùng nó để phát hiện lỗi khi phát triển, nên con số này là <strong>lạc quan</strong>, chưa phải đánh giá độc lập.</p>
     </aside>
   </section>
 
@@ -361,7 +366,7 @@
         <li><b>Tải ảnh chụp</b> hoặc <b>viết trên khung vẽ</b></li>
         <li>Khung từng ký tự, ảnh 28×28 và điểm tin cậy; ký tự chưa chắc viền vàng</li>
         <li>Chấm đáp số: <b>✓</b> đúng, <b>✗</b> sai kèm kết quả đúng</li>
-        <li>Xem ảnh từng bước xử lý; bật tắt từng bước</li>
+        <li>Xem ảnh từng bước; chọn cách phân ngưỡng, bật/tắt chỉnh nghiêng, xóa dòng kẻ, phép đóng, tách chữ dính</li>
         <li>Dòng lệnh: đọc ảnh, <b>cắt mỗi phép tính thành một ảnh</b>, đánh giá</li>
       </ul>
     </div>
@@ -377,22 +382,30 @@
   <!-- ============ 16. KẾT LUẬN ============ -->
   <section class="slide" data-title="Kết luận">
     <p class="kicker">15 · Kết luận</p>
-    <h2 class="h2">Kết luận và <span class="accent">hướng phát triển</span></h2>
-    <div class="hai-cot">
+    <h2 class="h2">Kết luận, hạn chế và <span class="accent">hướng phát triển</span></h2>
+    <div class="luoi g3 ket-luan">
       <div class="the">
         <h4>Đạt được</h4>
         <ul class="ds gon" data-anim="stagger-list">
           <li>Đọc biểu thức từ ảnh chụp thật, hai cột, có gạch xóa</li>
           <li>Xử lý ảnh tự cài: chuẩn hóa nền, chiếu, liên thông, drop-fall</li>
-          <li>Người lạ: <b>31% → 62%</b> dãy đúng; ảnh thật 28/32 dòng</li>
+          <li>Người lạ: <b>31% → 63%</b> dãy đúng</li>
+        </ul>
+      </div>
+      <div class="the han-che">
+        <h4>Hạn chế</h4>
+        <ul class="ds gon" data-anim="stagger-list">
+          <li>Ảnh thật: một trang, một người, đã dùng khi phát triển</li>
+          <li>Tách chữ dính còn là lỗi lớn: 111/277 dãy sai do thừa, thiếu ký tự</li>
+          <li>Chưa có ngoặc, số thập phân, bố cục hai chiều</li>
         </ul>
       </div>
       <div class="the">
         <h4>Hướng phát triển</h4>
         <ul class="ds gon" data-anim="stagger-list">
-          <li>Thu nhỏ hoặc bỏ phép đóng; chỉ chỉnh nghiêng khi ≥ 2 dòng</li>
+          <li>Thu trang của nhiều người, giữ làm tập kiểm định cuối</li>
+          <li>Chọn lại phép đóng, chỉnh nghiêng trên tập đó</li>
           <li>Đọc cả dòng không cần tách ký tự (CRNN + CTC)</li>
-          <li>Thêm ngoặc, số thập phân, phân số viết dọc</li>
         </ul>
       </div>
     </div>
@@ -400,8 +413,9 @@
     <div class="deck-footer"><span>Nhóm 13 · Xử lý ảnh</span><span class="slide-number" data-current="16" data-total="17"></span></div>
     <aside class="notes">
       <p>Tóm lại, nhóm đã xây dựng hệ thống <strong>đọc biểu thức viết tay từ ảnh chụp</strong>, chạy được trên ảnh thật hai cột có gạch xóa.</p>
-      <p>Phần xử lý ảnh nhóm tự cài toàn bộ. Trên chữ của người lạ, tỉ lệ đọc đúng cả dãy tăng <strong>từ 31 lên 62%</strong>.</p>
-      <p>Hướng phát triển: trước mắt là <strong>thu nhỏ hoặc bỏ phép đóng</strong>, và chỉ chỉnh nghiêng khi trang có từ hai dòng trở lên. Xa hơn là thử mô hình <strong>đọc cả dòng</strong> không cần tách ký tự, và mở rộng thêm ký hiệu.</p>
+      <p>Phần xử lý ảnh nhóm tự cài toàn bộ. Trên chữ của người lạ, tỉ lệ đọc đúng cả dãy tăng <strong>từ 31 lên gần 63%</strong>.</p>
+      <p>Hạn chế: số liệu ảnh thật mới có <strong>một trang của một người</strong> và trang này đã dùng khi phát triển; tách chữ dính vẫn là nguồn lỗi lớn, khoảng 40% số dãy sai trên CVL là do thừa hoặc thiếu ký tự; và hệ thống chưa đọc được ngoặc, số thập phân hay phân số viết dọc.</p>
+      <p>Hướng phát triển: trước mắt là <strong>thu thêm trang của nhiều người</strong> và giữ riêng làm tập kiểm định cuối, rồi dùng tập đó để quyết định có bỏ phép đóng hay chỉ chỉnh nghiêng khi trang có từ hai dòng. Xa hơn là thử mô hình <strong>đọc cả dòng</strong> không cần tách ký tự, và mở rộng thêm ký hiệu.</p>
       <p>Hai bài học lớn nhất: với ảnh chụp thật, <strong>tách nền và tách ký tự</strong> quyết định nhiều hơn việc tinh chỉnh mạng; và phải luôn <strong>đánh giá trên chữ viết thật</strong>, vì cải tiến trông tốt trên dữ liệu cùng nguồn có thể làm kém đi trên chữ thật.</p>
     </aside>
   </section>

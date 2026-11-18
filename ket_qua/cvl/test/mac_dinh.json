@@ -4,17 +4,17 @@
   "so_nguoi_viet": 75,
   "tuy_chon": {},
   "so_anh": 744,
-  "dung_ca_day": 450,
-  "ti_le_dung_ca_day": 0.6048,
+  "dung_ca_day": 455,
+  "ti_le_dung_ca_day": 0.6116,
   "khoang_tin_cay_95": [
-    0.5693,
-    0.6393
+    0.576,
+    0.6459
   ],
-  "cer": 0.1096,
+  "cer": 0.109,
   "so_ky_tu": 4615,
   "theo_day": {
     "135579": {
-      "dung": 47,
+      "dung": 48,
       "so_anh": 75
     },
     "136075": {
@@ -22,11 +22,11 @@
       "so_anh": 75
     },
     "25000": {
-      "dung": 34,
+      "dung": 35,
       "so_anh": 73
     },
     "359910": {
-      "dung": 46,
+      "dung": 48,
       "so_anh": 73
     },
     "4179248": {
@@ -34,7 +34,7 @@
       "so_anh": 74
     },
     "5841077": {
-      "dung": 39,
+      "dung": 40,
       "so_anh": 75
     },
     "609251": {
@@ -54,5 +54,6 @@
       "so_anh": 75
     }
   },
-  "giay": 97.4
+  "giay": 110.9,
+  "kiem_dinh_90": null
 }

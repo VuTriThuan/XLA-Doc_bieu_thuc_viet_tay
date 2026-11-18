@@ -10,7 +10,7 @@
 Đầu ra: với từng dòng, chuỗi ký tự đọc được, giá trị của biểu thức (hoặc danh sách số), và — nếu có đáp số viết sau dấu
 `=` — đáp số đó đúng hay sai. Kèm theo: hộp bao, ảnh 28×28 và điểm softmax của từng ký tự để người dùng kiểm tra.
 
-So với BTL trước (mỗi ảnh một chữ số), phần thêm vào gần như toàn bộ là **xử lý ảnh**: tách nền trên ảnh chụp,
+So với bài toán nhận dạng từng chữ số đã cắt sẵn (mỗi ảnh một chữ số), phần thêm vào gần như toàn bộ là **xử lý ảnh**: tách nền trên ảnh chụp,
 chỉnh nghiêng, xóa dòng kẻ, tách dòng, tách ký tự, xử lý chữ dính và chuẩn hóa ký tự. CNN giữ nguyên kiến trúc, chỉ đổi
 số lớp từ 10 thành 15.
 
@@ -104,7 +104,7 @@ kiểu đầu vào mà nó gặp khi đọc trang (phiên bản đầu vào `ky-
 ## 3. CNN và dữ liệu
 
 Hai kiến trúc (`loi/cnn.py`):
-- **nhỏ** (giữ nguyên từ BTL trước, 57 nghìn tham số): Conv(1→16,3×3) – ReLU – MaxPool – Conv(16→32,3×3) – ReLU –
+- **nhỏ** (57 nghìn tham số): Conv(1→16,3×3) – ReLU – MaxPool – Conv(16→32,3×3) – ReLU –
   MaxPool – Dropout 0,25 – Linear(800→64) – ReLU – Linear(64→số lớp).
 - **lớn** (0,47 triệu tham số): hai khối [Conv 3×3 có đệm – BatchNorm – ReLU – Conv 3×3 – BatchNorm – ReLU – MaxPool]
   với 32 rồi 64 bộ lọc – Dropout 0,4 – Linear(3136→128) – ReLU – Dropout 0,4 – Linear(128→số lớp).
@@ -113,7 +113,7 @@ Lớp: `0–9 + − × ÷ =` (15) và lớp thứ 16 **"rác"** (không phải m
 
 | Nguồn | Lớp | Chia tập | Giấy phép |
 |---|---|---|---|
-| MNIST | 0–9 | 54.000 / 6.000 / 10.000 (chia của BTL trước; test chính thức giữ nguyên) | CC BY-SA 3.0 |
+| MNIST | 0–9 | 54.000 / 6.000 / 10.000 (chia phân tầng, hạt cố định; test chính thức giữ nguyên) | CC BY-SA 3.0 |
 | HASYv2 (Thoma, 2017) | + − × ÷ | theo **người viết**, gần 70/15/15 cho từng lớp; tối đa 80 mẫu/người/lớp vì một người viết 1.396 dấu × | ODbL 1.0 |
 | CROHME+ (mở rộng CROHME 2023) | = + − × ÷ | khử trùng lặp nét, chia theo băm của **mã tờ viết gốc** 70/15/15 | CC BY-NC-SA 3.0 |
 | EMNIST Digits (Cohen và cs., 2017) | 0–9 | 60.000 ảnh train chọn ngẫu nhiên (chỉ huấn luyện) | NIST, dùng tự do |

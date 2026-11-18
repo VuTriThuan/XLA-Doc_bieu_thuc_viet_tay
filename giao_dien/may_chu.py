@@ -22,6 +22,9 @@ from tien_xu_ly.trang import PHUONG_PHAP_NGUONG
 
 GIAO_DIEN = Path(__file__).resolve().parent
 TOI_DA_BODY = 25 * 1024 * 1024
+# tùy chọn bật/tắt nhận từ giao diện (khóa JSON = tham số của DocTrang.doc) và giá trị mặc định
+TUY_CHON_BAT_TAT = {"xoa_dong_ke": True, "dong_hinh_thai": True, "tach_dinh": True, "chinh_nghieng": True,
+                    "chi_chu_so": False}
 DATA_URL = re.compile(r"^data:image/[a-zA-Z0-9.+-]+;base64,")
 BUOC = (("xam", "Ảnh xám"), ("chuan_hoa_nen", "Chuẩn hóa nền"), ("nguong", "Phân ngưỡng"),
         ("mat_na", "Sau lọc nhiễu, chỉnh nghiêng, xóa dòng kẻ"), ("chieu_ngang", "Chiếu ngang → tách dòng"),
@@ -96,14 +99,19 @@ class XuLyYeuCau(BaseHTTPRequestHandler):
             if not 0 < dai <= TOI_DA_BODY:
                 raise ValueError
             yc = json.loads(self.rfile.read(dai))
+            if not isinstance(yc, dict):                 # [], null, số, chuỗi: JSON hợp lệ nhưng không phải object
+                raise ValueError
             nguong = yc.get("nguong", "nen_otsu")
             if nguong not in PHUONG_PHAP_NGUONG:
                 raise ValueError
-            tuy_chon = {"phuong_phap": nguong, "xoa_dong_ke": bool(yc.get("xoa_dong_ke", True)),
-                        "tach_dinh": bool(yc.get("tach_dinh", True)), "chinh_nghieng": bool(yc.get("chinh_nghieng", True)),
-                        "chi_chu_so": bool(yc.get("chi_chu_so", False))}
+            tuy_chon = {"phuong_phap": nguong}
+            for khoa, mac_dinh in TUY_CHON_BAT_TAT.items():
+                gia_tri = yc.get(khoa, mac_dinh)
+                if not isinstance(gia_tri, bool):            # "false" là chuỗi khác rỗng: không được coi là True
+                    raise ValueError
+                tuy_chon[khoa] = gia_tri
             du_lieu = tach_data_url(yc["anh"])
-        except (ValueError, KeyError, TypeError, json.JSONDecodeError):
+        except (ValueError, KeyError, TypeError, AttributeError, json.JSONDecodeError):
             return self._gui(400, {"loi": "Yêu cầu không hợp lệ (cần ảnh dạng data URL, tối đa 25 MB)"})
         try:
             rgb = doc_anh(du_lieu)

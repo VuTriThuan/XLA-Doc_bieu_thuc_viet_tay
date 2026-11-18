@@ -1,0 +1,25 @@
+{
+  "thi_nghiem": "quet_cong0_vien1",
+  "tuy_chon": {
+    "cat_cong": false,
+    "duong_vien": true
+  },
+  "so_trang": 60,
+  "so_dong": 360,
+  "dong_dung": 281,
+  "ti_le_dong_dung": 0.7806,
+  "khoang_tin_cay_dong_95": [
+    0.735,
+    0.8202
+  ],
+  "so_bieu_thuc": 244,
+  "bieu_thuc_dung_gia_tri": 178,
+  "ti_le_bieu_thuc_dung": 0.7295,
+  "khoang_tin_cay_bieu_thuc_95": [
+    0.6705,
+    0.7814
+  ],
+  "so_bieu_thuc_khong_xac_dinh": 0,
+  "khong_xac_dinh_bao_loi_dung": 0,
+  "cer": 0.0529
+}

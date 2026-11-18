@@ -11,12 +11,14 @@
     0.7985,
     0.9827
   ],
-  "so_bieu_thuc": 28,
+  "so_bieu_thuc": 27,
   "bieu_thuc_dung_gia_tri": 25,
-  "ti_le_bieu_thuc_dung": 0.8929,
+  "ti_le_bieu_thuc_dung": 0.9259,
   "khoang_tin_cay_bieu_thuc_95": [
-    0.728,
-    0.9629
+    0.7663,
+    0.9794
   ],
-  "cer": 0.0101
+  "so_bieu_thuc_khong_xac_dinh": 1,
+  "khong_xac_dinh_bao_loi_dung": 1,
+  "cer": 0.0068
 }

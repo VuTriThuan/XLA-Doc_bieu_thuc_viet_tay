@@ -1,16 +1,18 @@
 {
   "thi_nghiem": "nguong_sauvola",
-  "cvl_val_dung": 259,
+  "cvl_val_dung": 262,
   "cvl_val_so": 518,
-  "cvl_val_ti_le": 0.5,
-  "cvl_val_cer": 0.2893,
+  "cvl_val_ti_le": 0.5058,
+  "cvl_val_cer": 0.289,
   "kd90_dung": 30,
-  "kd90_cer": 0.3011,
-  "trang_dong_dung": 248,
-  "trang_ti_le_dong": 0.6889,
-  "trang_bieu_thuc_dung": 0.6434,
-  "trang_cer": 0.0882,
+  "kd90_cer": 0.3047,
+  "trang_dong_dung": 246,
+  "trang_ti_le_dong": 0.6833,
+  "trang_bieu_thuc_dung": 0.6393,
+  "trang_cer": 0.089,
   "that_dong_dung": 1,
   "that_bieu_thuc_dung": 1,
-  "that_cer": 0.0372
+  "that_so_bieu_thuc": 27,
+  "that_chia_0_bao_loi": 0,
+  "that_cer": 0.0338
 }

@@ -6,13 +6,13 @@
     "chi_chu_so": true
   },
   "so_anh": 744,
-  "dung_ca_day": 191,
-  "ti_le_dung_ca_day": 0.2567,
+  "dung_ca_day": 193,
+  "ti_le_dung_ca_day": 0.2594,
   "khoang_tin_cay_95": [
-    0.2266,
-    0.2893
+    0.2292,
+    0.2921
   ],
-  "cer": 0.2414,
+  "cer": 0.2436,
   "so_ky_tu": 4615,
   "theo_day": {
     "135579": {
@@ -20,7 +20,7 @@
       "so_anh": 75
     },
     "136075": {
-      "dung": 23,
+      "dung": 24,
       "so_anh": 75
     },
     "25000": {
@@ -28,7 +28,7 @@
       "so_anh": 73
     },
     "359910": {
-      "dung": 14,
+      "dung": 15,
       "so_anh": 73
     },
     "4179248": {
@@ -56,5 +56,6 @@
       "so_anh": 75
     }
   },
-  "giay": 171.8
+  "giay": 124.5,
+  "kiem_dinh_90": null
 }

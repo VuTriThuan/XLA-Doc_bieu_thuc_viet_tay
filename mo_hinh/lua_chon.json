@@ -8,17 +8,19 @@
   "tieu_chi": "các ứng viên đọc đúng ít hơn tốt nhất không quá 2/90 dãy CVL kiểm định coi là ngang nhau; trong đó chọn CER thấp nhất trên 90 dãy, rồi accuracy chữ số CVL của 9 người đó, rồi ít thành phần hơn; không dùng test ký tự, không dùng CVL Strings test",
   "ung_vien_ngang_nhau": [
     "nho_rac",
+    "lon_rac",
     "co_cvl+nho_rac",
     "co_cvl+lon_rac",
     "nho_rac+lon_rac"
   ],
   "ghi_chu": "ngưỡng ngang nhau được thêm sau khi quy tắc cũ chọn nho_rac (hơn 1/90 dãy) nhưng kém trên test",
-  "khong_dung_test": true,
+  "test_dung_de_cham_ung_vien": false,
+  "diem_test_anh_huong_quy_tac_chon": true,
   "to_hop": {
     "co_so": {
       "cvl_kiem_dinh_dung_ca_day": 21,
       "cvl_kiem_dinh_so_day": 90,
-      "cvl_kiem_dinh_cer": 0.2366,
+      "cvl_kiem_dinh_cer": 0.2348,
       "cvl_chu_so_kiem_dinh": 0.8844,
       "mnist_validation": 0.9873
     },
@@ -32,7 +34,7 @@
     "co_cvl": {
       "cvl_kiem_dinh_dung_ca_day": 34,
       "cvl_kiem_dinh_so_day": 90,
-      "cvl_kiem_dinh_cer": 0.1953,
+      "cvl_kiem_dinh_cer": 0.1971,
       "cvl_chu_so_kiem_dinh": 0.9051,
       "mnist_validation": 0.9688
     },
@@ -44,44 +46,44 @@
       "mnist_validation": 0.967
     },
     "lon_rac": {
-      "cvl_kiem_dinh_dung_ca_day": 38,
+      "cvl_kiem_dinh_dung_ca_day": 39,
       "cvl_kiem_dinh_so_day": 90,
-      "cvl_kiem_dinh_cer": 0.1559,
+      "cvl_kiem_dinh_cer": 0.1613,
       "cvl_chu_so_kiem_dinh": 0.9288,
       "mnist_validation": 0.9772
     },
     "co_so+cai_tien": {
       "cvl_kiem_dinh_dung_ca_day": 23,
       "cvl_kiem_dinh_so_day": 90,
-      "cvl_kiem_dinh_cer": 0.2384,
+      "cvl_kiem_dinh_cer": 0.233,
       "cvl_chu_so_kiem_dinh": 0.8844,
       "mnist_validation": 0.987
     },
     "co_so+co_cvl": {
       "cvl_kiem_dinh_dung_ca_day": 31,
       "cvl_kiem_dinh_so_day": 90,
-      "cvl_kiem_dinh_cer": 0.1882,
+      "cvl_kiem_dinh_cer": 0.1864,
       "cvl_chu_so_kiem_dinh": 0.9133,
       "mnist_validation": 0.983
     },
     "co_so+nho_rac": {
       "cvl_kiem_dinh_dung_ca_day": 34,
       "cvl_kiem_dinh_so_day": 90,
-      "cvl_kiem_dinh_cer": 0.1703,
+      "cvl_kiem_dinh_cer": 0.172,
       "cvl_chu_so_kiem_dinh": 0.9102,
       "mnist_validation": 0.9853
     },
     "co_so+lon_rac": {
-      "cvl_kiem_dinh_dung_ca_day": 33,
+      "cvl_kiem_dinh_dung_ca_day": 34,
       "cvl_kiem_dinh_so_day": 90,
-      "cvl_kiem_dinh_cer": 0.1631,
+      "cvl_kiem_dinh_cer": 0.1613,
       "cvl_chu_so_kiem_dinh": 0.9185,
       "mnist_validation": 0.9867
     },
     "cai_tien+co_cvl": {
-      "cvl_kiem_dinh_dung_ca_day": 25,
+      "cvl_kiem_dinh_dung_ca_day": 24,
       "cvl_kiem_dinh_so_day": 90,
-      "cvl_kiem_dinh_cer": 0.2312,
+      "cvl_kiem_dinh_cer": 0.2294,
       "cvl_chu_so_kiem_dinh": 0.9061,
       "mnist_validation": 0.9793
     },
@@ -93,30 +95,30 @@
       "mnist_validation": 0.9795
     },
     "cai_tien+lon_rac": {
-      "cvl_kiem_dinh_dung_ca_day": 33,
+      "cvl_kiem_dinh_dung_ca_day": 34,
       "cvl_kiem_dinh_so_day": 90,
-      "cvl_kiem_dinh_cer": 0.1738,
+      "cvl_kiem_dinh_cer": 0.1756,
       "cvl_chu_so_kiem_dinh": 0.9205,
       "mnist_validation": 0.9837
     },
     "co_cvl+nho_rac": {
       "cvl_kiem_dinh_dung_ca_day": 40,
       "cvl_kiem_dinh_so_day": 90,
-      "cvl_kiem_dinh_cer": 0.1792,
+      "cvl_kiem_dinh_cer": 0.1774,
       "cvl_chu_so_kiem_dinh": 0.9154,
       "mnist_validation": 0.9722
     },
     "co_cvl+lon_rac": {
       "cvl_kiem_dinh_dung_ca_day": 40,
       "cvl_kiem_dinh_so_day": 90,
-      "cvl_kiem_dinh_cer": 0.1595,
+      "cvl_kiem_dinh_cer": 0.1559,
       "cvl_chu_so_kiem_dinh": 0.9278,
       "mnist_validation": 0.979
     },
     "nho_rac+lon_rac": {
-      "cvl_kiem_dinh_dung_ca_day": 39,
+      "cvl_kiem_dinh_dung_ca_day": 40,
       "cvl_kiem_dinh_so_day": 90,
-      "cvl_kiem_dinh_cer": 0.1577,
+      "cvl_kiem_dinh_cer": 0.1523,
       "cvl_chu_so_kiem_dinh": 0.9236,
       "mnist_validation": 0.9785
     }
@@ -143,5 +145,5 @@
       "sha256_checkpoint": "4e4f222aa83c8b373829c8ce89aeee6b1fbe0169ec9e36267f19896b73996ccf"
     }
   },
-  "chot_luc_utc": "2026-11-17T15:19:43.763983+00:00"
+  "chot_luc_utc": "2026-11-18T15:39:31.659444+00:00"
 }
