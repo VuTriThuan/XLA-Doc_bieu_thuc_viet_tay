@@ -395,7 +395,6 @@
       <div class="the han-che">
         <h4>Hạn chế</h4>
         <ul class="ds gon" data-anim="stagger-list">
-          <li>Ảnh thật: một trang, một người, đã dùng khi phát triển</li>
           <li>Tách chữ dính còn là lỗi lớn: 111/277 dãy sai do thừa, thiếu ký tự</li>
           <li>Chưa có ngoặc, số thập phân, bố cục hai chiều</li>
         </ul>
@@ -403,8 +402,7 @@
       <div class="the">
         <h4>Hướng phát triển</h4>
         <ul class="ds gon" data-anim="stagger-list">
-          <li>Thu trang của nhiều người, giữ làm tập kiểm định cuối</li>
-          <li>Chọn lại phép đóng, chỉnh nghiêng trên tập đó</li>
+          <li>Chọn lại phép đóng, chỉnh nghiêng trên tập trang mới</li>
           <li>Đọc cả dòng không cần tách ký tự (CRNN + CTC)</li>
         </ul>
       </div>
@@ -414,8 +412,8 @@
     <aside class="notes">
       <p>Tóm lại, nhóm đã xây dựng hệ thống <strong>đọc biểu thức viết tay từ ảnh chụp</strong>, chạy được trên ảnh thật hai cột có gạch xóa.</p>
       <p>Phần xử lý ảnh nhóm tự cài toàn bộ. Trên chữ của người lạ, tỉ lệ đọc đúng cả dãy tăng <strong>từ 31 lên gần 63%</strong>.</p>
-      <p>Hạn chế: số liệu ảnh thật mới có <strong>một trang của một người</strong> và trang này đã dùng khi phát triển; tách chữ dính vẫn là nguồn lỗi lớn, khoảng 40% số dãy sai trên CVL là do thừa hoặc thiếu ký tự; và hệ thống chưa đọc được ngoặc, số thập phân hay phân số viết dọc.</p>
-      <p>Hướng phát triển: trước mắt là <strong>thu thêm trang của nhiều người</strong> và giữ riêng làm tập kiểm định cuối, rồi dùng tập đó để quyết định có bỏ phép đóng hay chỉ chỉnh nghiêng khi trang có từ hai dòng. Xa hơn là thử mô hình <strong>đọc cả dòng</strong> không cần tách ký tự, và mở rộng thêm ký hiệu.</p>
+      <p>Hạn chế: tách chữ dính vẫn là nguồn lỗi lớn, khoảng 40% số dãy sai trên CVL là do thừa hoặc thiếu ký tự; và hệ thống chưa đọc được ngoặc, số thập phân hay phân số viết dọc.</p>
+      <p>Hướng phát triển: trước mắt là đo trên một tập trang mới để quyết định có bỏ <strong>phép đóng</strong> hay chỉ chỉnh nghiêng khi trang có từ hai dòng. Xa hơn là thử mô hình <strong>đọc cả dòng</strong> không cần tách ký tự, và mở rộng thêm ký hiệu.</p>
       <p>Hai bài học lớn nhất: với ảnh chụp thật, <strong>tách nền và tách ký tự</strong> quyết định nhiều hơn việc tinh chỉnh mạng; và phải luôn <strong>đánh giá trên chữ viết thật</strong>, vì cải tiến trông tốt trên dữ liệu cùng nguồn có thể làm kém đi trên chữ thật.</p>
     </aside>
   </section>
